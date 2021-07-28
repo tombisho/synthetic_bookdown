@@ -1,0 +1,87 @@
+# Introduction {#intro}
+
+You can label chapter and section titles using `{#label}` after them, e.g., we can reference Chapter \@ref(intro). If you do not manually label them, there will be automatic labels anyway, e.g., Chapter \@ref(methods).
+
+Figures and tables with captions will be placed in `figure` and `table` environments, respectively.
+
+```{r nice-fig, fig.cap='Here is a nice figure!', out.width='80%', fig.asp=.75, fig.align='center'}
+par(mar = c(4, 4, .1, .1))
+plot(pressure, type = 'b', pch = 19)
+```
+
+Reference a figure by its code chunk label with the `fig:` prefix, e.g., see Figure \@ref(fig:nice-fig). Similarly, you can reference tables generated from `knitr::kable()`, e.g., see Table \@ref(tab:nice-tab).
+
+```{r nice-tab, tidy=FALSE}
+knitr::kable(
+  head(iris, 20), caption = 'Here is a nice table!',
+  booktabs = TRUE
+)
+```
+
+You can write citations, too. For example, we are using the **bookdown** package [@R-bookdown] in this sample book, which was built on top of R Markdown and **knitr** [@xie2015].
+
+WHat goes in here:
+
+motivation
+overview of steps
+Prerequisites
+
+## Assumptions
+
+It is assumed that the reader is familiar with the basic concepts and motivations around using DataSHIELD for federated analysis. More information about this can be found [here](https://isglobal-brge.github.io/resource_bookdown/datashield.html).
+
+Knowledge of R. For harmonisation, knowledge of JavaScript and or MagmaScript is needed. For analysis, an understand of DSLite.
+
+## Motivation
+
+The benefits of the federated approach are that data can be harmonised and analysed without giving complete access to or transferring the data. A less desirable consequence of this approach is that it is more challenging for data experts to harmonise data to common standards, and for analysts to run their scripts, when the data are not tangibly in front of them. One could say that it is like trying to build a Lego model while wearing a blindfold.
+
+With harmonisation, some groups have been through the process of transferring and centralising the data, but this negates one of the benefits of the federated approach. While it is only necessary for the harmonisation team to receive the data, a lot of bureaucracy is required. Others have mandated that each group harmonise their own data. The challenge with this approach is that there can be inconsistencies in the approach of different teams, and each team needs training and expertise in the harmonisation process.
+
+Analysis via DataSHIELD has no such compromises and requires the analyst to make their own checks to validate that their analysis is progressing as planned. For example, to confirm that a subset into male and female groups has been successful, the analyst could ask for a summary of the original gender column and check the counts of male and female participants match the length of the subset dataframes. These extra steps are fine, but it can be more tricky to confirm the behaviour of more complex functions such as `ds.lexis` and `ds.reshape`.
+
+## Hypothesis for using synthetic data
+
+R packages like **synthpop** [@synthpop] have been developed to generate realistic synthetic data that is not disclosive. A dsSynthpop package could be used to generate a synthetic data set on the client side by running the generation on the server side. Users can then perform harmonisation while working with full access to synthetic data on the client to confirm algorithms are working as expected. When the user is happy that the algorithms are working correctly, they can then be applied to the real data on the server side. The user therefore has the benefit of being able to see the data they are working with, but without the need to go through labourious data transfer processes. The same benefits are realised for an analysis user.
+
+Other packages that provide synthetic data generation are **simstudy** and **gcipdr**. Simstudy requires the user to define the characteristics of variables and their relationships. However, access via DataSHIELD can help provide these summary statistics. There is also the benefit that the user then has precise control over the nature of the synthetic data generated. Likewise, gcipdr makes it easy for users to extract features such as mean, standard deviation and correlations via DataSHIELD, and use these to provide a more automated generation of the synthetic data.
+
+
+## Overview of steps
+
+The hypothesis can be described by the following steps for harmonisation:
+
+1. The data custodian uploads the raw data to the server side and installs the server side pack `dsSynthetic`
+2. The user install the package `dsSyntheticClient` on the client side
+3. The user calls functions in the `dsSyntheticClient` package to generate a synthetic but non-disclosive data set which is returned to the client side.
+4. With the synthetic data on the client side, the user can view the data and build harmonisation algorithms. They will be able to see the results of the algorithms for each row of data.
+5. When the algorithms are complete, they can be implemented on Opal using the real data.
+
+And for analysis:
+
+1. Assuming steps #1 and #2 above are complete, the user calls functions in the `dsSyntheticClient` package to generate a synthetic but non-disclosive data set which is returned to the client side.
+2. With the synthetic data on the client side, the user then starts a `DSLite` instance and places the synthetic data into it.
+3. The user can then write their analysis using DataSHIELD commands against the DSLite instance. DSLite then allows the user to return any object on the server side. Therefore users can see the results of each step of their script for each row of data.
+4. When the analysis script is complete, the user can run it against the real data on the server side.
+
+## Prerequisites
+
+Using DataSHIELD also requires some R packages to be installed on the client site. So far, the following R packages must be installed (in their development version):
+
+```{r install_all, eval=FALSE}
+install.packages("DSOpal", dependencies = TRUE)
+install.packages("dsBaseClient", repos = c("https://cloud.r-project.org", "https://cran.obiba.org"), dependencies = TRUE)
+devtools::install_github("tombisho/dsSyntheticClient", dependencies = TRUE)
+install.packages("simstudy")
+```
+
+The package dependencies are then loaded as follows:
+
+```{r requiredRPackages}
+library(DSOpal)
+library(dsSyntheticClient)
+```
+
+
+
+

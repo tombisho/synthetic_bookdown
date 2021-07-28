@@ -1,0 +1,17 @@
+fig:nice-fig
+tab:nice-tab
+prerequisites
+intro
+literature
+methods
+applications
+example-one
+example-two
+final-words
+generating-data-using-synthpop-methods
+assumptions
+motivation
+hypothesis-for-using-synthetic-data
+overview-of-steps
+prerequisites-1
+generating-data-using-simstudy-methods
