@@ -1,0 +1,43 @@
+# Generating data using gcipdr methods
+
+In this chapter we will look at how to generate synthetic data on the client side using DataSHIELD functions to extract characteristics of the data set from the server side.
+
+The **gcipdr** package is an initial version and more details can be found [here](https://github.com/bonorico/gcipdr).
+
+More prerequisites:
+
+```{r install gcipdr}
+
+library(devtools)
+install_github("bonorico/gcipdr")
+
+url <- "https://cran.r-project.org/src/contrib/Archive/JohnsonDistribution/JohnsonDistribution_0.24.tar.gz"
+pkgFile <- "JohnsonDistribution_0.24.tar.gz"
+download.file(url = url, destfile = pkgFile)
+
+install.packages(pkgs=pkgFile, type="source", repos=NULL)
+
+unlink(pkgFile)
+
+```
+Again we need to build a login object for the server that holds the data:
+
+```{r log in object gcipdr}
+builder <- DSI::newDSLoginBuilder()
+# hide credentials
+builder$append(server="server1", url="https://opal-sandbox.mrc-epid.cam.ac.uk",
+               user="dsuser", password="password", 
+               table = "DASIM.DASIM1")
+logindata <- builder$build()
+```
+
+And then we establish a connection to the server:
+
+```{r log in gcipdr}
+library(DSOpal)
+if(exists("connections")){
+  datashield.logout(conns = connections)
+}
+connections <- datashield.login(logins=logindata, assign = TRUE)
+```
+

@@ -1,10 +1,10 @@
 # Generating data using simstudy methods
 
-In this chapter we will look at how to generate synthetic data on the server side using DataSHIELD functions
+In this chapter we will look at how to generate synthetic data on the client side using DataSHIELD functions to extract characteristics of the data set from the server side.
 
 Again we need to build a login object for the server that holds the data:
 
-```{r log in object}
+```{r log in object simstudy}
 builder <- DSI::newDSLoginBuilder()
 # hide credentials
 builder$append(server="server1", url="https://opal-sandbox.mrc-epid.cam.ac.uk",
@@ -15,7 +15,7 @@ logindata <- builder$build()
 
 And then we establish a connection to the server:
 
-```{r log in}
+```{r log in simstudy}
 library(DSOpal)
 if(exists("connections")){
   datashield.logout(conns = connections)
@@ -54,7 +54,7 @@ def <- defData(def, varname = "DIS_DIAB", dist = "binary",
                formula = probs[2])
 def <- defData(def, varname = "DIS_AMI", dist = "binary", 
                formula = probs[3])
-dd <- genData(1000, def)
+synth_data_sim <- genData(1000, def)
 ```
 
 There are some variables that we expect to be normally distributed, so we will extract the mean and standard deviation:
@@ -78,8 +78,8 @@ rownames(corrs) <- Dnames
 
 And use the correlation matrix and the properties of the normally distributed data to generate simulated data for them, adding this to the binary data we already generated:
 ```{r norm gen}
-dd <- addCorData(dd, idname = "id", mu = means, sigma = sds, corMatrix = corrs[c(1:5), c(1:5)], cnames = columns)
-head(dd)
+synth_data_sim <- addCorData(synth_data_sim, idname = "id", mu = means, sigma = sds, corMatrix = corrs[c(1:5), c(1:5)], cnames = columns)
+head(synth_data_sim)
 ```
 
 **TO DO** the binary data and normal data are not linked through the correlation. I wonder how this could be done to improve the realism of the data.

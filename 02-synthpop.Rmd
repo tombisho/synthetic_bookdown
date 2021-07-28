@@ -1,6 +1,6 @@
-# Generating data using synthpop methods
+# Generating data using synthpop methods {#synthpop}
 
-In this chapter we will look at how to generate synthetic data on the server side using DataSHIELD functions
+In this chapter we will look at how to generate synthetic data on the server side using DataSHIELD functions, based on **synthpop** functionality.
 
 First we need to build a login object for the server that holds the data:
 
@@ -22,7 +22,7 @@ if(exists("connections")){
 }
 connections <- datashield.login(logins=logindata, assign = TRUE)
 ```
-The first option is to generate a synthetic dataset using an implementation of the **synthpop** package on the server side. Assuming we have a data set with a small number of columns (i.e. around 10) we can simply execute the following command:
+The first option is to generate a synthetic dataset using an implementation of the **synthpop** package on the server side. **synthpop** requires some thought on the part of the user: if you have a data set with a large number of columns it may take a large amount of time to generate the synthetic data. Assuming we have a data set with a small number of columns (i.e. around 10) we can simply execute the following command:
 
 ```{r synthpop data gen}
 library(dsSyntheticClient)
@@ -39,5 +39,8 @@ ds.subset(x = "D", subset = "D2", cols = c("LAB_HDL", "LAB_TRIG", "LAB_GLUC_FAST
 synth_data_sub = ds.syn(data = "D2", method = "cart", m = 1, seed = 123)$server1$syn
 head(synth_data_sub)
 ```
-
+Lastly we save our data for later chapters:
+```{r synthpop write}
+write.csv(x = synth_data, file = "data/synth_data.csv")
+```
 

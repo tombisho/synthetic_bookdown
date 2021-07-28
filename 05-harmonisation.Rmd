@@ -1,0 +1,76 @@
+# Harmonisation with synthetic data
+
+In this section we describe how to harmonise synthetic data on the client side. This assumes that you have used one of the previous methods to generate your synthetic data set.
+
+Recall that we are aiming to use synthetic data on the client side to design harmonisation algorithms, and then implement these on Opal on the server side using the real data. This removes the need for the user to have full access to the data. Harmonisation algorithms can be implemented in Opal using MagmaScript (JavaScript) without having full access to the data. The idea is that writing JavaScript on the client side, having full access to the synthetic data, is easier than writing the code on the server side with only access to summaries.
+
+In detail, the steps proposed are:
+
+1. Start a JavaScript session on the client side
+2. Load the synthetic data into the session
+3. Write and test JavaScript code in the session against the synthetic data
+4. When happy, copy the code into Opal to generate the harmonised data
+
+## Getting set up
+
+First some system level packages may need to be installed: On Debian / Ubuntu install either `libv8-dev` or `libnode-dev`, on Fedora use `v8-devel`.
+
+```{r install V8}
+install.packages("V8")
+library("V8")
+```
+
+## Do the work
+
+Now we can start a JavaScript session and load the additional MagmaScript functionality:
+```{r start V8}
+ct2 = v8()
+ct2$source("https://raw.githubusercontent.com/tombisho/dsSyntheticClient/main/MagmaScript.min.js")
+synth_data = read.csv(file = "data/synth_data.csv")
+ct2$assign("synth_data", synth_data)
+```
+
+We then go into the console, grab a row of data and write some JavaScript:
+```{r eval=FALSE}
+ct2$console()
+
+```
+
+```javascript
+var $ = MagmaScript.MagmaScript.$.bind(als_syn[0]);
+
+if ($('y3age').value() > 25 ){
+  out = 1
+} else {
+  out = 0
+}
+```
+
+Now we test our code against the whole dataset:
+```javascript
+
+myScript = `
+if ($('y3age').value() > 25 ){
+  out = 1
+} else {
+  out = 0
+}
+`
+
+var my_out = [];
+
+for (j = 0; j < als_syn.length; j++){
+  my_out.push(MagmaScript.evaluator(myScript, als_syn[j]))
+}
+exit
+```
+And pull the results into R for inspection:
+
+```{r eval=FALSE}
+my_out = ct2$get("my_out")
+
+synth_data_harm = synth_data
+synth_data_harm$my_var = my_out
+```
+
+If we are happy with the code, we can paste it directly into the Opal *script* interface so that it can be executed on the real data.

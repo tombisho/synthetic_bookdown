@@ -24,7 +24,7 @@
 <meta name="author" content="Tom Bishop, Soumya Banerjee" />
 
 
-<meta name="date" content="2021-07-27" />
+<meta name="date" content="2021-07-28" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="index.html"/>
-<link rel="next" href="generating-data-using-synthpop-methods.html"/>
+<link rel="next" href="synthpop.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -145,13 +145,19 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.4" data-path="intro.html"><a href="intro.html#overview-of-steps"><i class="fa fa-check"></i><b>2.4</b> Overview of steps</a></li>
 <li class="chapter" data-level="2.5" data-path="intro.html"><a href="intro.html#prerequisites-1"><i class="fa fa-check"></i><b>2.5</b> Prerequisites</a></li>
 </ul></li>
-<li class="chapter" data-level="3" data-path="generating-data-using-synthpop-methods.html"><a href="generating-data-using-synthpop-methods.html"><i class="fa fa-check"></i><b>3</b> Generating data using synthpop methods</a></li>
+<li class="chapter" data-level="3" data-path="synthpop.html"><a href="synthpop.html"><i class="fa fa-check"></i><b>3</b> Generating data using synthpop methods</a></li>
 <li class="chapter" data-level="4" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>4</b> Methods</a></li>
-<li class="chapter" data-level="5" data-path="applications.html"><a href="applications.html"><i class="fa fa-check"></i><b>5</b> Applications</a><ul>
-<li class="chapter" data-level="5.1" data-path="applications.html"><a href="applications.html#example-one"><i class="fa fa-check"></i><b>5.1</b> Example one</a></li>
-<li class="chapter" data-level="5.2" data-path="applications.html"><a href="applications.html#example-two"><i class="fa fa-check"></i><b>5.2</b> Example two</a></li>
+<li class="chapter" data-level="5" data-path="generating-data-using-simstudy-methods.html"><a href="generating-data-using-simstudy-methods.html"><i class="fa fa-check"></i><b>5</b> Generating data using simstudy methods</a></li>
+<li class="chapter" data-level="6" data-path="generating-data-using-gcipdr-methods.html"><a href="generating-data-using-gcipdr-methods.html"><i class="fa fa-check"></i><b>6</b> Generating data using gcipdr methods</a></li>
+<li class="chapter" data-level="7" data-path="harmonisation-with-synthetic-data.html"><a href="harmonisation-with-synthetic-data.html"><i class="fa fa-check"></i><b>7</b> Harmonisation with synthetic data</a><ul>
+<li class="chapter" data-level="7.1" data-path="harmonisation-with-synthetic-data.html"><a href="harmonisation-with-synthetic-data.html#getting-set-up"><i class="fa fa-check"></i><b>7.1</b> Getting set up</a></li>
+<li class="chapter" data-level="7.2" data-path="harmonisation-with-synthetic-data.html"><a href="harmonisation-with-synthetic-data.html#do-the-work"><i class="fa fa-check"></i><b>7.2</b> Do the work</a></li>
 </ul></li>
-<li class="chapter" data-level="6" data-path="final-words.html"><a href="final-words.html"><i class="fa fa-check"></i><b>6</b> Final Words</a></li>
+<li class="chapter" data-level="8" data-path="analysis-with-synthetic-data.html"><a href="analysis-with-synthetic-data.html"><i class="fa fa-check"></i><b>8</b> Analysis with synthetic data</a><ul>
+<li class="chapter" data-level="8.1" data-path="analysis-with-synthetic-data.html"><a href="analysis-with-synthetic-data.html#getting-set-up-1"><i class="fa fa-check"></i><b>8.1</b> Getting set up</a></li>
+<li class="chapter" data-level="8.2" data-path="analysis-with-synthetic-data.html"><a href="analysis-with-synthetic-data.html#create-synthetic-dataset"><i class="fa fa-check"></i><b>8.2</b> Create synthetic dataset</a></li>
+<li class="chapter" data-level="8.3" data-path="analysis-with-synthetic-data.html"><a href="analysis-with-synthetic-data.html#start-dslite-local-instance"><i class="fa fa-check"></i><b>8.3</b> Start DSLite local instance</a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
 <li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
@@ -175,183 +181,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="intro" class="section level1">
 <h1><span class="header-section-number">Chapter 2</span> Introduction</h1>
-<p>You can label chapter and section titles using <code>{#label}</code> after them, e.g., we can reference Chapter <a href="intro.html#intro">2</a>. If you do not manually label them, there will be automatic labels anyway, e.g., Chapter <a href="methods.html#methods">4</a>.</p>
-<p>Figures and tables with captions will be placed in <code>figure</code> and <code>table</code> environments, respectively.</p>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="intro.html#cb1-1"></a><span class="kw">par</span>(<span class="dt">mar =</span> <span class="kw">c</span>(<span class="dv">4</span>, <span class="dv">4</span>, <span class="fl">.1</span>, <span class="fl">.1</span>))</span>
-<span id="cb1-2"><a href="intro.html#cb1-2"></a><span class="kw">plot</span>(pressure, <span class="dt">type =</span> <span class="st">&#39;b&#39;</span>, <span class="dt">pch =</span> <span class="dv">19</span>)</span></code></pre></div>
-<div class="figure" style="text-align: center"><span id="fig:nice-fig"></span>
-<img src="synthetic_bookdown_files/figure-html/nice-fig-1.png" alt="Here is a nice figure!" width="80%" />
-<p class="caption">
-Figure 2.1: Here is a nice figure!
-</p>
-</div>
-<p>Reference a figure by its code chunk label with the <code>fig:</code> prefix, e.g., see Figure <a href="intro.html#fig:nice-fig">2.1</a>. Similarly, you can reference tables generated from <code>knitr::kable()</code>, e.g., see Table <a href="intro.html#tab:nice-tab">2.1</a>.</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="intro.html#cb2-1"></a>knitr<span class="op">::</span><span class="kw">kable</span>(</span>
-<span id="cb2-2"><a href="intro.html#cb2-2"></a>  <span class="kw">head</span>(iris, <span class="dv">20</span>), <span class="dt">caption =</span> <span class="st">&#39;Here is a nice table!&#39;</span>,</span>
-<span id="cb2-3"><a href="intro.html#cb2-3"></a>  <span class="dt">booktabs =</span> <span class="ot">TRUE</span></span>
-<span id="cb2-4"><a href="intro.html#cb2-4"></a>)</span></code></pre></div>
-<table>
-<caption><span id="tab:nice-tab">Table 2.1: </span>Here is a nice table!</caption>
-<thead>
-<tr class="header">
-<th align="right">Sepal.Length</th>
-<th align="right">Sepal.Width</th>
-<th align="right">Petal.Length</th>
-<th align="right">Petal.Width</th>
-<th align="left">Species</th>
-</tr>
-</thead>
-<tbody>
-<tr class="odd">
-<td align="right">5.1</td>
-<td align="right">3.5</td>
-<td align="right">1.4</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="even">
-<td align="right">4.9</td>
-<td align="right">3.0</td>
-<td align="right">1.4</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="odd">
-<td align="right">4.7</td>
-<td align="right">3.2</td>
-<td align="right">1.3</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="even">
-<td align="right">4.6</td>
-<td align="right">3.1</td>
-<td align="right">1.5</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="odd">
-<td align="right">5.0</td>
-<td align="right">3.6</td>
-<td align="right">1.4</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="even">
-<td align="right">5.4</td>
-<td align="right">3.9</td>
-<td align="right">1.7</td>
-<td align="right">0.4</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="odd">
-<td align="right">4.6</td>
-<td align="right">3.4</td>
-<td align="right">1.4</td>
-<td align="right">0.3</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="even">
-<td align="right">5.0</td>
-<td align="right">3.4</td>
-<td align="right">1.5</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="odd">
-<td align="right">4.4</td>
-<td align="right">2.9</td>
-<td align="right">1.4</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="even">
-<td align="right">4.9</td>
-<td align="right">3.1</td>
-<td align="right">1.5</td>
-<td align="right">0.1</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="odd">
-<td align="right">5.4</td>
-<td align="right">3.7</td>
-<td align="right">1.5</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="even">
-<td align="right">4.8</td>
-<td align="right">3.4</td>
-<td align="right">1.6</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="odd">
-<td align="right">4.8</td>
-<td align="right">3.0</td>
-<td align="right">1.4</td>
-<td align="right">0.1</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="even">
-<td align="right">4.3</td>
-<td align="right">3.0</td>
-<td align="right">1.1</td>
-<td align="right">0.1</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="odd">
-<td align="right">5.8</td>
-<td align="right">4.0</td>
-<td align="right">1.2</td>
-<td align="right">0.2</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="even">
-<td align="right">5.7</td>
-<td align="right">4.4</td>
-<td align="right">1.5</td>
-<td align="right">0.4</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="odd">
-<td align="right">5.4</td>
-<td align="right">3.9</td>
-<td align="right">1.3</td>
-<td align="right">0.4</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="even">
-<td align="right">5.1</td>
-<td align="right">3.5</td>
-<td align="right">1.4</td>
-<td align="right">0.3</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="odd">
-<td align="right">5.7</td>
-<td align="right">3.8</td>
-<td align="right">1.7</td>
-<td align="right">0.3</td>
-<td align="left">setosa</td>
-</tr>
-<tr class="even">
-<td align="right">5.1</td>
-<td align="right">3.8</td>
-<td align="right">1.5</td>
-<td align="right">0.3</td>
-<td align="left">setosa</td>
-</tr>
-</tbody>
-</table>
-<p>You can write citations, too. For example, we are using the <strong>bookdown</strong> package <span class="citation">(Xie <a href="#ref-R-bookdown" role="doc-biblioref">2021</a>)</span> in this sample book, which was built on top of R Markdown and <strong>knitr</strong> <span class="citation">(Xie <a href="#ref-xie2015" role="doc-biblioref">2015</a>)</span>.</p>
-<p>WHat goes in here:</p>
-<p>motivation
-overview of steps
-Prerequisites</p>
 <div id="assumptions" class="section level2">
 <h2><span class="header-section-number">2.1</span> Assumptions</h2>
-<p>It is assumed that the reader is familiar with the basic concepts and motivations around using DataSHIELD for federated analysis. More information about this can be found <a href="https://isglobal-brge.github.io/resource_bookdown/datashield.html">here</a></p>
+<p>It is assumed that the reader is familiar with the basic concepts and motivations around using DataSHIELD for federated analysis. More information about this can be found <a href="https://isglobal-brge.github.io/resource_bookdown/datashield.html">here</a>.</p>
+<p>Knowledge of R. For harmonisation, knowledge of JavaScript and or MagmaScript is needed. For analysis, an understanding of DSLite.</p>
+<p>(<strong>TO DO add some more links to helpful stuff here</strong>)</p>
 </div>
 <div id="motivation" class="section level2">
 <h2><span class="header-section-number">2.2</span> Motivation</h2>
@@ -361,29 +195,42 @@ Prerequisites</p>
 </div>
 <div id="hypothesis-for-using-synthetic-data" class="section level2">
 <h2><span class="header-section-number">2.3</span> Hypothesis for using synthetic data</h2>
-<p>R packages like <span class="citation">(Nowok, Raab, and Dibben <a href="#ref-synthpop" role="doc-biblioref">2016</a>)</span> have been developed to generate realistic synthetic data that is not disclosive
-A dsSynthpop package could be used to generate a synthetic data set on the client side
-Users can then design harmonisation working with full access to synthetic data to confirm algorithms are working as expected
-The algorithms can then be applied to the real data</p>
+<p>R packages like <strong>synthpop</strong> <span class="citation">(Nowok, Raab, and Dibben <a href="#ref-synthpop" role="doc-biblioref">2016</a>)</span> have been developed to generate realistic synthetic data that is not disclosive. A dsSynthpop package could be used to generate a synthetic data set on the client side by running the generation on the server side. Users can then perform harmonisation while working with full access to synthetic data on the client to confirm algorithms are working as expected. When the user is happy that the algorithms are working correctly, they can then be applied to the real data on the server side. The user therefore has the benefit of being able to see the data they are working with, but without the need to go through labourious data transfer processes. The same benefits are realised for an analysis user.</p>
+<p>Other packages that provide synthetic data generation are <strong>simstudy</strong> and <strong>gcipdr</strong>. Simstudy requires the user to define the characteristics of variables and their relationships. However, access via DataSHIELD can help provide these summary statistics. There is also the benefit that the user then has precise control over the nature of the synthetic data generated. Likewise, gcipdr makes it easy for users to extract features such as mean, standard deviation and correlations via DataSHIELD, and use these to provide a more automated generation of the synthetic data.</p>
 </div>
 <div id="overview-of-steps" class="section level2">
 <h2><span class="header-section-number">2.4</span> Overview of steps</h2>
-<p>sdfdsf</p>
+<p>The hypothesis can be described by the following steps for harmonisation:</p>
+<ol style="list-style-type: decimal">
+<li>The data custodian uploads the raw data to the server side and installs the server side pack <code>dsSynthetic</code></li>
+<li>The user install the package <code>dsSyntheticClient</code> on the client side</li>
+<li>The user calls functions in the <code>dsSyntheticClient</code> package to generate a synthetic but non-disclosive data set which is returned to the client side.</li>
+<li>With the synthetic data on the client side, the user can view the data and build harmonisation algorithms. They will be able to see the results of the algorithms for each row of data.</li>
+<li>When the algorithms are complete, they can be implemented on Opal using the real data.</li>
+</ol>
+<p>And for analysis:</p>
+<ol style="list-style-type: decimal">
+<li>Assuming steps #1 and #2 above are complete, the user calls functions in the <code>dsSyntheticClient</code> package to generate a synthetic but non-disclosive data set which is returned to the client side.</li>
+<li>With the synthetic data on the client side, the user then starts a <code>DSLite</code> instance and places the synthetic data into it.</li>
+<li>The user can then write their analysis using DataSHIELD commands against the DSLite instance. DSLite then allows the user to return any object on the server side. Therefore users can see the results of each step of their script for each row of data.</li>
+<li>When the analysis script is complete, the user can run it against the real data on the server side.</li>
+</ol>
 </div>
 <div id="prerequisites-1" class="section level2">
 <h2><span class="header-section-number">2.5</span> Prerequisites</h2>
 <p>Using DataSHIELD also requires some R packages to be installed on the client site. So far, the following R packages must be installed (in their development version):</p>
-<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="intro.html#cb3-1"></a><span class="kw">install.packages</span>(<span class="st">&quot;DSOpal&quot;</span>, <span class="dt">dependencies =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb3-2"><a href="intro.html#cb3-2"></a><span class="kw">install.packages</span>(<span class="st">&quot;dsBaseClient&quot;</span>, <span class="dt">repos =</span> <span class="kw">c</span>(<span class="st">&quot;https://cloud.r-project.org&quot;</span>, <span class="st">&quot;https://cran.obiba.org&quot;</span>), <span class="dt">dependencies =</span> <span class="ot">TRUE</span>)</span>
-<span id="cb3-3"><a href="intro.html#cb3-3"></a>devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;tombisho/dsSyntheticClient&quot;</span>, <span class="dt">dependencies =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="intro.html#cb1-1"></a><span class="kw">install.packages</span>(<span class="st">&quot;DSOpal&quot;</span>, <span class="dt">dependencies =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb1-2"><a href="intro.html#cb1-2"></a><span class="kw">install.packages</span>(<span class="st">&quot;dsBaseClient&quot;</span>, <span class="dt">repos =</span> <span class="kw">c</span>(<span class="st">&quot;https://cloud.r-project.org&quot;</span>, <span class="st">&quot;https://cran.obiba.org&quot;</span>), <span class="dt">dependencies =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb1-3"><a href="intro.html#cb1-3"></a>devtools<span class="op">::</span><span class="kw">install_github</span>(<span class="st">&quot;tombisho/dsSyntheticClient&quot;</span>, <span class="dt">dependencies =</span> <span class="ot">TRUE</span>)</span>
+<span id="cb1-4"><a href="intro.html#cb1-4"></a><span class="kw">install.packages</span>(<span class="st">&quot;simstudy&quot;</span>)</span></code></pre></div>
 <p>The package dependencies are then loaded as follows:</p>
-<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="intro.html#cb4-1"></a><span class="kw">library</span>(DSOpal)</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="intro.html#cb2-1"></a><span class="kw">library</span>(DSOpal)</span></code></pre></div>
 <pre><code>## Loading required package: opalr</code></pre>
 <pre><code>## Loading required package: httr</code></pre>
 <pre><code>## Loading required package: DSI</code></pre>
 <pre><code>## Loading required package: progress</code></pre>
 <pre><code>## Loading required package: R6</code></pre>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="intro.html#cb10-1"></a><span class="kw">library</span>(dsSyntheticClient)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="intro.html#cb8-1"></a><span class="kw">library</span>(dsSyntheticClient)</span></code></pre></div>
 
 </div>
 </div>
@@ -392,12 +239,6 @@ The algorithms can then be applied to the real data</p>
 <div id="ref-synthpop">
 <p>Nowok, Beata, Gillian M. Raab, and Chris Dibben. 2016. <em>Synthpop: Bespoke Creation of Synthetic Data in R</em>. <em>Journal of Statistical Software</em>. Vol. 74. 11. <a href="https://doi.org/10.18637/jss.v074.i11">https://doi.org/10.18637/jss.v074.i11</a>.</p>
 </div>
-<div id="ref-xie2015">
-<p>Xie, Yihui. 2015. <em>Dynamic Documents with R and Knitr</em>. 2nd ed. Boca Raton, Florida: Chapman; Hall/CRC. <a href="http://yihui.org/knitr/">http://yihui.org/knitr/</a>.</p>
-</div>
-<div id="ref-R-bookdown">
-<p>Xie, Yihui. 2021. <em>Bookdown: Authoring Books and Technical Documents with R Markdown</em>. <a href="https://CRAN.R-project.org/package=bookdown">https://CRAN.R-project.org/package=bookdown</a>.</p>
-</div>
 </div>
             </section>
 
@@ -405,7 +246,7 @@ The algorithms can then be applied to the real data</p>
         </div>
       </div>
 <a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="generating-data-using-synthpop-methods.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="synthpop.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

@@ -1,0 +1,97 @@
+# Analysis with synthetic data
+
+In this section we describe how we can use a copy of the synthetic data to help users write DataSHIELD analysis code. Again we will make use of an existing dataset (** TO DO would be better to run this on some harmonised data)
+
+Recall that the objective here is to use a synthetic copy of already harmonised real data that is then made available to the analyst on the client side. This synthetic data set can be loaded into **DSLite**, a special client side implementation of server side DataSHIELD used for development purposes: the user can have full access to the data. This is acceptable in this situation as the data are synthetic. Therefore the user has the chance to write DataSHIELD code but see the complete results of each step. This makes it easier to develop the code.
+
+## Getting set up
+We require `DSLite` and `dsBase` to be installed:
+```{r install DSLite}
+install.packages("DSLite", dependencies = TRUE)
+install.packages("dsBase", repos = c("https://cloud.r-project.org", "https://cran.obiba.org"), dependencies = TRUE)
+```
+
+Let us assume that the *DASIM1* dataset has previously been harmonised and is held on a server. We do not have access to the full dataset but want to do some analysis on it. Using the method described above, the first thing to do is generate a synthetic version that we can fully access. To do this we will use the same steps that were shown in @ref(synthpop)
+
+## Create synthetic dataset
+
+We build our log in object
+
+```{r}
+builder <- DSI::newDSLoginBuilder()
+builder$append(server="server1", url="https://opal-sandbox.mrc-epid.cam.ac.uk",
+               user="dsuser", password="password", 
+               table = "DASIM.DASIM1")
+logindata <- builder$build()
+```
+Then perform the log in to ther server:
+```{r}
+library(DSOpal)
+if(exists("connections")){
+  datashield.logout(conns = connections)
+}
+connections <- datashield.login(logins=logindata, assign = TRUE)
+```
+
+The *DASIM1* dataset is relatively small (i.e. around 10 columns). This is probably also true of many harmonised data sets.
+Therefore we can just create a synthetic version of it:
+
+```{r}
+library(dsSyntheticClient)
+synth_data = ds.syn(data = "D", method = "cart", m = 1, seed = 123)
+DASIM = synth_data$server1$syn
+```
+
+## Start DSLite local instance
+
+```{r}
+library(DSLite)
+library(dsBaseClient)
+dslite.server <- newDSLiteServer(tables=list(DASIM=DASIM))
+dslite.server$config(defaultDSConfiguration(include=c("dsBase", "dsSynthetic")))
+
+builder <- DSI::newDSLoginBuilder()
+builder$append(server="server1", url="dslite.server", table = "DASIM", driver = "DSLiteDriver")
+logindata <- builder$build()
+
+if(exists("connections")){
+  datashield.logout(conns = connections)
+}
+connections <- datashield.login(logins=logindata, assign = TRUE)
+```
+
+We can now check for ourselves that our *DASIM* data is in the DSLite server:
+
+```{r}
+ds.summary('D')
+```
+
+Now suppose we want to subset the *DASIM* data into men and women. We can use the `ds.subset` function:
+```{r warning=FALSE}
+ds.subset(x="D", subset = "women", logicalOperator = "==", threshold = 1)
+```
+With DSLite we have the chance to look at actually what happened in detail:
+```{r}
+women = getDSLiteData(conns = connections, symbol = "women")$server1
+head(women)
+```
+This doesn't look quite right. There are still rows with `GENDER == 0`. There is an error in our code (we didn't specify `GENDER` as part of the logicalOperator parameter) but didn't get a warning. Let's make a correction and try again:
+```{r warning=FALSE}
+ds.subset(x="D", subset = "women", logicalOperator = "GENDER==", threshold = 1)
+# get the data again
+women = getDSLiteData(conns = connections, symbol = "women")$server1
+head(women)
+```
+This now looks much better.
+
+We can also compare results obtained via DataSHIELD with results on the actual data:
+
+```{r message=FALSE}
+from_server = ds.glm(formula = "DIS_DIAB~PM_BMI_CONTINUOUS+LAB_TSC+LAB_HDL", data = "women", family = "binomial")
+from_local = glm(formula = "DIS_DIAB~PM_BMI_CONTINUOUS+LAB_TSC+LAB_HDL", data = women, family = "binomial")
+
+from_server$coefficients
+from_local$coefficients
+```
+
+**TO DO make a more realistic example for example with ds.lexis or ds.reshape where it is much harder to know what is going on**
