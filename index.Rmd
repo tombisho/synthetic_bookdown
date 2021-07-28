@@ -1,0 +1,17 @@
+--- 
+title: "dsSynthetic: A DataSHIELD package to generate synthetic data"
+author: "Tom Bishop, Soumya Banerjee"
+date: "`r Sys.Date()`"
+site: bookdown::bookdown_site
+documentclass: book
+bibliography: [book.bib, packages.bib]
+biblio-style: apalike
+link-citations: yes
+description: "The purpose of this book is to help the reader use dsSynthetic to help with data harmonisation and analysis when working on federated data sets with DataSHIELD"
+---
+
+# Prerequisites
+
+This is a book written to provide a tutorial for the **dsSynthetic** DataSHIELD R package
+
+To use it you will need a working version of R with the DataSHIELD cl
