@@ -16,3 +16,5 @@ analysis-with-synthetic-data
 getting-set-up-1
 create-synthetic-dataset
 start-dslite-local-instance
+fig:unnamed-chunk-1
+fig:unnamed-chunk-2

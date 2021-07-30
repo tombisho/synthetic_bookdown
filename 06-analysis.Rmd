@@ -11,7 +11,7 @@ install.packages("DSLite", dependencies = TRUE)
 install.packages("dsBase", repos = c("https://cloud.r-project.org", "https://cran.obiba.org"), dependencies = TRUE)
 ```
 
-Let us assume that the *DASIM1* dataset has previously been harmonised and is held on a server. We do not have access to the full dataset but want to do some analysis on it. Using the method described above, the first thing to do is generate a synthetic version that we can fully access. To do this we will use the same steps that were shown in @ref(synthpop)
+Let us assume that the *DASIM1* dataset has previously been harmonised and is held on a server. We do not have access to the full dataset but want to do some analysis on it. Using the method described above, the first thing to do is generate a synthetic version that we can fully access. To do this we will use the same steps that were shown in \@ref(synthpop)
 
 ## Create synthetic dataset
 

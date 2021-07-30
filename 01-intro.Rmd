@@ -14,7 +14,7 @@ The benefits of the federated approach are that data can be harmonised and analy
 
 With harmonisation, some groups have been through the process of transferring and centralising the data, but this negates one of the benefits of the federated approach. While it is only necessary for the harmonisation team to receive the data, a lot of bureaucracy is required. Others have mandated that each group harmonise their own data. The challenge with this approach is that there can be inconsistencies in the approach of different teams, and each team needs training and expertise in the harmonisation process.
 
-Analysis via DataSHIELD has no such compromises and requires the analyst to make their own checks to validate that their analysis is progressing as planned. For example, to confirm that a subset into male and female groups has been successful, the analyst could ask for a summary of the original gender column and check the counts of male and female participants match the length of the subset dataframes. These extra steps are fine, but it can be more tricky to confirm the behaviour of more complex functions such as `ds.lexis` and `ds.reshape`.
+Analysis via DataSHIELD has no such compromises and requires the analyst to make their own checks to validate that their analysis is progressing as planned. This has to be done via non-disclosive information about the data that the analysis has generated. For example, to confirm that a subset into male and female groups has been successful, the analyst could ask for a summary of the original gender column and check the counts of male and female participants match the length of the subset dataframes. These extra steps are fine, but it can be more tricky to confirm the behaviour of more complex functions such as `ds.lexis` and `ds.reshape`.
 
 ## Hypothesis for using synthetic data
 
@@ -33,12 +33,22 @@ The hypothesis can be described by the following steps for harmonisation:
 4. With the synthetic data on the client side, the user can view the data and build harmonisation algorithms. They will be able to see the results of the algorithms for each row of data.
 5. When the algorithms are complete, they can be implemented on Opal using the real data.
 
+
+```{r echo=FALSE, fig.cap="Central harmonisation via synthetic data without full access"}
+knitr::include_graphics(rep("images/dssynthetic1.png"))
+
+```
 And for analysis:
 
 1. Assuming steps #1 and #2 above are complete, the user calls functions in the `dsSyntheticClient` package to generate a synthetic but non-disclosive data set which is returned to the client side.
 2. With the synthetic data on the client side, the user then starts a `DSLite` instance and places the synthetic data into it.
 3. The user can then write their analysis using DataSHIELD commands against the DSLite instance. DSLite then allows the user to return any object on the server side. Therefore users can see the results of each step of their script for each row of data.
 4. When the analysis script is complete, the user can run it against the real data on the server side.
+
+```{r echo=FALSE, fig.cap="Prototyping DataSHIELD analysis using synthetic data on DSLite"}
+knitr::include_graphics(rep("images/dssynthetic2.png"))
+
+```
 
 ## Prerequisites
 

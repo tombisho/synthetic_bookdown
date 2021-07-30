@@ -14,4 +14,4 @@ description: "The purpose of this book is to help the reader use dsSynthetic to 
 
 This is a book written to provide a tutorial for the **dsSynthetic** DataSHIELD R package
 
-To use it you will need a working version of R with the DataSHIELD cl
+To use it you will need a working version of R with the DataSHIELD client packages installed. See \@ref(intro) for more details.

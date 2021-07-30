@@ -34,7 +34,7 @@ We then have the synthetic data on the client side and can view and manipulate i
 head(synth_data)
 ```
 If you have a dataset with a larger number of columns, you could generate a synthetic dataset for a subset of the variables that you need to generate a particular harmonised variable. For example if we needed to generate a diabetes variable based on blood triglycerides, HDL and glucose we could just generate a dataset for those variables:
-```{r synthpop data subset}
+```{r warning=FALSE synthpop data subset}
 ds.subset(x = "D", subset = "D2", cols = c("LAB_HDL", "LAB_TRIG", "LAB_GLUC_FASTING"))
 synth_data_sub = ds.syn(data = "D2", method = "cart", m = 1, seed = 123)$server1$syn
 head(synth_data_sub)

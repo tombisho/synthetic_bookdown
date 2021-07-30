@@ -24,7 +24,7 @@
 <meta name="author" content="Tom Bishop, Soumya Banerjee" />
 
 
-<meta name="date" content="2021-07-28" />
+<meta name="date" content="2021-07-29" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -55,70 +55,6 @@
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
 
 
-<style type="text/css">
-code.sourceCode > span { display: inline-block; line-height: 1.25; }
-code.sourceCode > span { color: inherit; text-decoration: inherit; }
-code.sourceCode > span:empty { height: 1.2em; }
-.sourceCode { overflow: visible; }
-code.sourceCode { white-space: pre; position: relative; }
-pre.sourceCode { margin: 0; }
-@media screen {
-div.sourceCode { overflow: auto; }
-}
-@media print {
-code.sourceCode { white-space: pre-wrap; }
-code.sourceCode > span { text-indent: -5em; padding-left: 5em; }
-}
-pre.numberSource code
-  { counter-reset: source-line 0; }
-pre.numberSource code > span
-  { position: relative; left: -4em; counter-increment: source-line; }
-pre.numberSource code > span > a:first-child::before
-  { content: counter(source-line);
-    position: relative; left: -1em; text-align: right; vertical-align: baseline;
-    border: none; display: inline-block;
-    -webkit-touch-callout: none; -webkit-user-select: none;
-    -khtml-user-select: none; -moz-user-select: none;
-    -ms-user-select: none; user-select: none;
-    padding: 0 4px; width: 4em;
-    color: #aaaaaa;
-  }
-pre.numberSource { margin-left: 3em; border-left: 1px solid #aaaaaa;  padding-left: 4px; }
-div.sourceCode
-  {   }
-@media screen {
-code.sourceCode > span > a:first-child::before { text-decoration: underline; }
-}
-code span.al { color: #ff0000; font-weight: bold; } /* Alert */
-code span.an { color: #60a0b0; font-weight: bold; font-style: italic; } /* Annotation */
-code span.at { color: #7d9029; } /* Attribute */
-code span.bn { color: #40a070; } /* BaseN */
-code span.bu { } /* BuiltIn */
-code span.cf { color: #007020; font-weight: bold; } /* ControlFlow */
-code span.ch { color: #4070a0; } /* Char */
-code span.cn { color: #880000; } /* Constant */
-code span.co { color: #60a0b0; font-style: italic; } /* Comment */
-code span.cv { color: #60a0b0; font-weight: bold; font-style: italic; } /* CommentVar */
-code span.do { color: #ba2121; font-style: italic; } /* Documentation */
-code span.dt { color: #902000; } /* DataType */
-code span.dv { color: #40a070; } /* DecVal */
-code span.er { color: #ff0000; font-weight: bold; } /* Error */
-code span.ex { } /* Extension */
-code span.fl { color: #40a070; } /* Float */
-code span.fu { color: #06287e; } /* Function */
-code span.im { } /* Import */
-code span.in { color: #60a0b0; font-weight: bold; font-style: italic; } /* Information */
-code span.kw { color: #007020; font-weight: bold; } /* Keyword */
-code span.op { color: #666666; } /* Operator */
-code span.ot { color: #007020; } /* Other */
-code span.pp { color: #bc7a00; } /* Preprocessor */
-code span.sc { color: #4070a0; } /* SpecialChar */
-code span.ss { color: #bb6688; } /* SpecialString */
-code span.st { color: #4070a0; } /* String */
-code span.va { color: #19177c; } /* Variable */
-code span.vs { color: #4070a0; } /* VerbatimString */
-code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
-</style>
 
 
 <link rel="stylesheet" href="style.css" type="text/css" />
@@ -134,7 +70,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
       <nav role="navigation">
 
 <ul class="summary">
-<li><a href="./">A Minimal Book Example</a></li>
+<li><a href="./">dsSynthetic: Synthetic data generation with DataSHIELD</a></li>
 
 <li class="divider"></li>
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Prerequisites</a></li>
@@ -146,17 +82,16 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.5" data-path="intro.html"><a href="intro.html#prerequisites-1"><i class="fa fa-check"></i><b>2.5</b> Prerequisites</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="synthpop.html"><a href="synthpop.html"><i class="fa fa-check"></i><b>3</b> Generating data using synthpop methods</a></li>
-<li class="chapter" data-level="4" data-path="methods.html"><a href="methods.html"><i class="fa fa-check"></i><b>4</b> Methods</a></li>
-<li class="chapter" data-level="5" data-path="generating-data-using-simstudy-methods.html"><a href="generating-data-using-simstudy-methods.html"><i class="fa fa-check"></i><b>5</b> Generating data using simstudy methods</a></li>
-<li class="chapter" data-level="6" data-path="generating-data-using-gcipdr-methods.html"><a href="generating-data-using-gcipdr-methods.html"><i class="fa fa-check"></i><b>6</b> Generating data using gcipdr methods</a></li>
-<li class="chapter" data-level="7" data-path="harmonisation-with-synthetic-data.html"><a href="harmonisation-with-synthetic-data.html"><i class="fa fa-check"></i><b>7</b> Harmonisation with synthetic data</a><ul>
-<li class="chapter" data-level="7.1" data-path="harmonisation-with-synthetic-data.html"><a href="harmonisation-with-synthetic-data.html#getting-set-up"><i class="fa fa-check"></i><b>7.1</b> Getting set up</a></li>
-<li class="chapter" data-level="7.2" data-path="harmonisation-with-synthetic-data.html"><a href="harmonisation-with-synthetic-data.html#do-the-work"><i class="fa fa-check"></i><b>7.2</b> Do the work</a></li>
+<li class="chapter" data-level="4" data-path="generating-data-using-simstudy-methods.html"><a href="generating-data-using-simstudy-methods.html"><i class="fa fa-check"></i><b>4</b> Generating data using simstudy methods</a></li>
+<li class="chapter" data-level="5" data-path="generating-data-using-gcipdr-methods.html"><a href="generating-data-using-gcipdr-methods.html"><i class="fa fa-check"></i><b>5</b> Generating data using gcipdr methods</a></li>
+<li class="chapter" data-level="6" data-path="harmonisation-with-synthetic-data.html"><a href="harmonisation-with-synthetic-data.html"><i class="fa fa-check"></i><b>6</b> Harmonisation with synthetic data</a><ul>
+<li class="chapter" data-level="6.1" data-path="harmonisation-with-synthetic-data.html"><a href="harmonisation-with-synthetic-data.html#getting-set-up"><i class="fa fa-check"></i><b>6.1</b> Getting set up</a></li>
+<li class="chapter" data-level="6.2" data-path="harmonisation-with-synthetic-data.html"><a href="harmonisation-with-synthetic-data.html#do-the-work"><i class="fa fa-check"></i><b>6.2</b> Do the work</a></li>
 </ul></li>
-<li class="chapter" data-level="8" data-path="analysis-with-synthetic-data.html"><a href="analysis-with-synthetic-data.html"><i class="fa fa-check"></i><b>8</b> Analysis with synthetic data</a><ul>
-<li class="chapter" data-level="8.1" data-path="analysis-with-synthetic-data.html"><a href="analysis-with-synthetic-data.html#getting-set-up-1"><i class="fa fa-check"></i><b>8.1</b> Getting set up</a></li>
-<li class="chapter" data-level="8.2" data-path="analysis-with-synthetic-data.html"><a href="analysis-with-synthetic-data.html#create-synthetic-dataset"><i class="fa fa-check"></i><b>8.2</b> Create synthetic dataset</a></li>
-<li class="chapter" data-level="8.3" data-path="analysis-with-synthetic-data.html"><a href="analysis-with-synthetic-data.html#start-dslite-local-instance"><i class="fa fa-check"></i><b>8.3</b> Start DSLite local instance</a></li>
+<li class="chapter" data-level="7" data-path="analysis-with-synthetic-data.html"><a href="analysis-with-synthetic-data.html"><i class="fa fa-check"></i><b>7</b> Analysis with synthetic data</a><ul>
+<li class="chapter" data-level="7.1" data-path="analysis-with-synthetic-data.html"><a href="analysis-with-synthetic-data.html#getting-set-up-1"><i class="fa fa-check"></i><b>7.1</b> Getting set up</a></li>
+<li class="chapter" data-level="7.2" data-path="analysis-with-synthetic-data.html"><a href="analysis-with-synthetic-data.html#create-synthetic-dataset"><i class="fa fa-check"></i><b>7.2</b> Create synthetic dataset</a></li>
+<li class="chapter" data-level="7.3" data-path="analysis-with-synthetic-data.html"><a href="analysis-with-synthetic-data.html#start-dslite-local-instance"><i class="fa fa-check"></i><b>7.3</b> Start DSLite local instance</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -182,12 +117,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div id="header">
 <h1 class="title">dsSynthetic: A DataSHIELD package to generate synthetic data</h1>
 <p class="author"><em>Tom Bishop, Soumya Banerjee</em></p>
-<p class="date" style="margin-top: 1.5em;"><em>2021-07-28</em></p>
+<p class="date" style="margin-top: 1.5em;"><em>2021-07-29</em></p>
 </div>
 <div id="prerequisites" class="section level1">
 <h1><span class="header-section-number">Chapter 1</span> Prerequisites</h1>
 <p>This is a book written to provide a tutorial for the <strong>dsSynthetic</strong> DataSHIELD R package</p>
-<p>To use it you will need a working version of R with the DataSHIELD cl</p>
+<p>To use it you will need a working version of R with the DataSHIELD client packages installed. See <a href="intro.html#intro">2</a> for more details.</p>
 
 </div>
             </section>
