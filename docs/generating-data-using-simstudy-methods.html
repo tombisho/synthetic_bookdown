@@ -24,7 +24,7 @@
 <meta name="author" content="Tom Bishop, Soumya Banerjee" />
 
 
-<meta name="date" content="2021-07-30" />
+<meta name="date" content="2021-08-03" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -32,7 +32,7 @@
   
   
 <link rel="prev" href="synthpop.html"/>
-<link rel="next" href="generating-data-using-gcipdr-methods.html"/>
+<link rel="next" href="harmonisation-with-synthetic-data.html"/>
 <script src="libs/jquery-2.2.3/jquery.min.js"></script>
 <link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
 <link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
@@ -147,15 +147,14 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="3" data-path="synthpop.html"><a href="synthpop.html"><i class="fa fa-check"></i><b>3</b> Generating data using synthpop methods</a></li>
 <li class="chapter" data-level="4" data-path="generating-data-using-simstudy-methods.html"><a href="generating-data-using-simstudy-methods.html"><i class="fa fa-check"></i><b>4</b> Generating data using simstudy methods</a></li>
-<li class="chapter" data-level="5" data-path="generating-data-using-gcipdr-methods.html"><a href="generating-data-using-gcipdr-methods.html"><i class="fa fa-check"></i><b>5</b> Generating data using gcipdr methods</a></li>
-<li class="chapter" data-level="6" data-path="harmonisation-with-synthetic-data.html"><a href="harmonisation-with-synthetic-data.html"><i class="fa fa-check"></i><b>6</b> Harmonisation with synthetic data</a><ul>
-<li class="chapter" data-level="6.1" data-path="harmonisation-with-synthetic-data.html"><a href="harmonisation-with-synthetic-data.html#getting-set-up"><i class="fa fa-check"></i><b>6.1</b> Getting set up</a></li>
-<li class="chapter" data-level="6.2" data-path="harmonisation-with-synthetic-data.html"><a href="harmonisation-with-synthetic-data.html#do-the-work"><i class="fa fa-check"></i><b>6.2</b> Do the work</a></li>
+<li class="chapter" data-level="5" data-path="harmonisation-with-synthetic-data.html"><a href="harmonisation-with-synthetic-data.html"><i class="fa fa-check"></i><b>5</b> Harmonisation with synthetic data</a><ul>
+<li class="chapter" data-level="5.1" data-path="harmonisation-with-synthetic-data.html"><a href="harmonisation-with-synthetic-data.html#getting-set-up"><i class="fa fa-check"></i><b>5.1</b> Getting set up</a></li>
+<li class="chapter" data-level="5.2" data-path="harmonisation-with-synthetic-data.html"><a href="harmonisation-with-synthetic-data.html#do-the-work"><i class="fa fa-check"></i><b>5.2</b> Do the work</a></li>
 </ul></li>
-<li class="chapter" data-level="7" data-path="analysis-with-synthetic-data.html"><a href="analysis-with-synthetic-data.html"><i class="fa fa-check"></i><b>7</b> Analysis with synthetic data</a><ul>
-<li class="chapter" data-level="7.1" data-path="analysis-with-synthetic-data.html"><a href="analysis-with-synthetic-data.html#getting-set-up-1"><i class="fa fa-check"></i><b>7.1</b> Getting set up</a></li>
-<li class="chapter" data-level="7.2" data-path="analysis-with-synthetic-data.html"><a href="analysis-with-synthetic-data.html#create-synthetic-dataset"><i class="fa fa-check"></i><b>7.2</b> Create synthetic dataset</a></li>
-<li class="chapter" data-level="7.3" data-path="analysis-with-synthetic-data.html"><a href="analysis-with-synthetic-data.html#start-dslite-local-instance"><i class="fa fa-check"></i><b>7.3</b> Start DSLite local instance</a></li>
+<li class="chapter" data-level="6" data-path="analysis-with-synthetic-data.html"><a href="analysis-with-synthetic-data.html"><i class="fa fa-check"></i><b>6</b> Analysis with synthetic data</a><ul>
+<li class="chapter" data-level="6.1" data-path="analysis-with-synthetic-data.html"><a href="analysis-with-synthetic-data.html#getting-set-up-1"><i class="fa fa-check"></i><b>6.1</b> Getting set up</a></li>
+<li class="chapter" data-level="6.2" data-path="analysis-with-synthetic-data.html"><a href="analysis-with-synthetic-data.html#create-synthetic-dataset"><i class="fa fa-check"></i><b>6.2</b> Create synthetic dataset</a></li>
+<li class="chapter" data-level="6.3" data-path="analysis-with-synthetic-data.html"><a href="analysis-with-synthetic-data.html#start-dslite-local-instance"><i class="fa fa-check"></i><b>6.3</b> Start DSLite local instance</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -180,7 +179,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="generating-data-using-simstudy-methods" class="section level1">
 <h1><span class="header-section-number">Chapter 4</span> Generating data using simstudy methods</h1>
-<p>In this chapter we will look at how to generate synthetic data on the client side using DataSHIELD functions to extract characteristics of the data set from the server side.</p>
+<p>In this chapter we will look at how to generate synthetic data on the client side using DataSHIELD functions to extract summary characteristics of the data set from the server side.</p>
 <p>Again we need to build a login object for the server that holds the data:</p>
 <div class="sourceCode" id="cb20"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb20-1"><a href="generating-data-using-simstudy-methods.html#cb20-1"></a>builder &lt;-<span class="st"> </span>DSI<span class="op">::</span><span class="kw">newDSLoginBuilder</span>()</span>
 <span id="cb20-2"><a href="generating-data-using-simstudy-methods.html#cb20-2"></a><span class="co"># hide credentials</span></span>
@@ -207,57 +206,74 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb25"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb25-1"><a href="generating-data-using-simstudy-methods.html#cb25-1"></a><span class="kw">library</span>(<span class="st">&quot;simstudy&quot;</span>)</span>
 <span id="cb25-2"><a href="generating-data-using-simstudy-methods.html#cb25-2"></a><span class="kw">library</span>(<span class="st">&quot;dsBaseClient&quot;</span>)</span></code></pre></div>
 <p>Then we can extract some parameters from the real data using DataSHIELD commands and use these to generate our synthetic data.</p>
-<p>We will look at the binary variables first, and get the probabilities for 0/1:</p>
-<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="generating-data-using-simstudy-methods.html#cb26-1"></a>factor_vars =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;DIS_CVA&quot;</span>, <span class="st">&quot;DIS_DIAB&quot;</span>, <span class="st">&quot;DIS_AMI&quot;</span> )</span>
-<span id="cb26-2"><a href="generating-data-using-simstudy-methods.html#cb26-2"></a>probs =<span class="st"> </span><span class="kw">numeric</span>()</span>
-<span id="cb26-3"><a href="generating-data-using-simstudy-methods.html#cb26-3"></a><span class="cf">for</span>(var <span class="cf">in</span> factor_vars){</span>
-<span id="cb26-4"><a href="generating-data-using-simstudy-methods.html#cb26-4"></a>  <span class="kw">ds.asNumeric</span>(<span class="kw">paste0</span>(<span class="st">&quot;D$&quot;</span>,var), <span class="dt">newobj =</span> <span class="kw">paste0</span>(var,<span class="st">&quot;_num&quot;</span>), <span class="dt">datasources =</span> connections)</span>
-<span id="cb26-5"><a href="generating-data-using-simstudy-methods.html#cb26-5"></a>  probs =<span class="st"> </span><span class="kw">c</span>(probs, <span class="kw">ds.mean</span>(<span class="kw">paste0</span>(var,<span class="st">&quot;_num&quot;</span>), <span class="dt">datasources =</span> connections)<span class="op">$</span>Mean.by.Study[<span class="dv">1</span>])</span>
-<span id="cb26-6"><a href="generating-data-using-simstudy-methods.html#cb26-6"></a>}</span></code></pre></div>
-<p><strong>TO DO helper function for the part above?</strong>
-<strong>for the next part, write a function to build a csv file to avoid repeated calls</strong></p>
-<p>Now we use <strong>simstudy</strong> to generate the binary variables:</p>
-<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="generating-data-using-simstudy-methods.html#cb27-1"></a>def &lt;-<span class="st"> </span><span class="kw">defData</span>(<span class="dt">varname =</span> <span class="st">&quot;GENDER&quot;</span>, <span class="dt">dist =</span> <span class="st">&quot;binary&quot;</span>, </span>
-<span id="cb27-2"><a href="generating-data-using-simstudy-methods.html#cb27-2"></a>               <span class="dt">formula =</span> <span class="st">&quot;0.5&quot;</span>)</span>
-<span id="cb27-3"><a href="generating-data-using-simstudy-methods.html#cb27-3"></a>def &lt;-<span class="st"> </span><span class="kw">defData</span>(def, <span class="dt">varname =</span> <span class="st">&quot;DIS_CVA&quot;</span>, <span class="dt">dist =</span> <span class="st">&quot;binary&quot;</span>, </span>
-<span id="cb27-4"><a href="generating-data-using-simstudy-methods.html#cb27-4"></a>               <span class="dt">formula =</span> probs[<span class="dv">1</span>])</span>
-<span id="cb27-5"><a href="generating-data-using-simstudy-methods.html#cb27-5"></a>def &lt;-<span class="st"> </span><span class="kw">defData</span>(def, <span class="dt">varname =</span> <span class="st">&quot;DIS_DIAB&quot;</span>, <span class="dt">dist =</span> <span class="st">&quot;binary&quot;</span>, </span>
-<span id="cb27-6"><a href="generating-data-using-simstudy-methods.html#cb27-6"></a>               <span class="dt">formula =</span> probs[<span class="dv">2</span>])</span>
-<span id="cb27-7"><a href="generating-data-using-simstudy-methods.html#cb27-7"></a>def &lt;-<span class="st"> </span><span class="kw">defData</span>(def, <span class="dt">varname =</span> <span class="st">&quot;DIS_AMI&quot;</span>, <span class="dt">dist =</span> <span class="st">&quot;binary&quot;</span>, </span>
-<span id="cb27-8"><a href="generating-data-using-simstudy-methods.html#cb27-8"></a>               <span class="dt">formula =</span> probs[<span class="dv">3</span>])</span>
-<span id="cb27-9"><a href="generating-data-using-simstudy-methods.html#cb27-9"></a>synth_data_sim &lt;-<span class="st"> </span><span class="kw">genData</span>(<span class="dv">1000</span>, def)</span></code></pre></div>
-<p>There are some variables that we expect to be normally distributed, so we will extract the mean and standard deviation:
-<strong>TO DO allow passing in vector? or use dshelper?</strong></p>
-<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="generating-data-using-simstudy-methods.html#cb28-1"></a>columns =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;LAB_TSC&quot;</span>, <span class="st">&quot;LAB_TRIG&quot;</span>, <span class="st">&quot;LAB_HDL&quot;</span>, <span class="st">&quot;LAB_GLUC_FASTING&quot;</span>, <span class="st">&quot;PM_BMI_CONTINUOUS&quot;</span>)</span>
-<span id="cb28-2"><a href="generating-data-using-simstudy-methods.html#cb28-2"></a>means =<span class="st"> </span><span class="kw">numeric</span>()</span>
-<span id="cb28-3"><a href="generating-data-using-simstudy-methods.html#cb28-3"></a>sds =<span class="st"> </span><span class="kw">numeric</span>()</span>
-<span id="cb28-4"><a href="generating-data-using-simstudy-methods.html#cb28-4"></a><span class="cf">for</span> (var <span class="cf">in</span> columns){</span>
-<span id="cb28-5"><a href="generating-data-using-simstudy-methods.html#cb28-5"></a>  means =<span class="st"> </span><span class="kw">c</span>(means, <span class="kw">ds.mean</span>(<span class="kw">paste0</span>(<span class="st">&quot;D$&quot;</span>,var), <span class="dt">datasources =</span> connections)<span class="op">$</span>Mean.by.Study[<span class="dv">1</span>])</span>
-<span id="cb28-6"><a href="generating-data-using-simstudy-methods.html#cb28-6"></a>  sds =<span class="st"> </span><span class="kw">c</span>(sds, <span class="kw">ds.var</span>(<span class="kw">paste0</span>(<span class="st">&quot;D$&quot;</span>,var), <span class="dt">datasources =</span> connections)<span class="op">$</span>Variance.by.Study[<span class="dv">1</span>]<span class="op">^</span><span class="fl">0.5</span>)</span>
-<span id="cb28-7"><a href="generating-data-using-simstudy-methods.html#cb28-7"></a>      }</span></code></pre></div>
-<p>We can obtain the correlation matrix from DataSHIELD:</p>
-<div class="sourceCode" id="cb29"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb29-1"><a href="generating-data-using-simstudy-methods.html#cb29-1"></a>corrs =<span class="st"> </span><span class="kw">ds.cor</span>(<span class="dt">x=</span><span class="st">&quot;D&quot;</span>, <span class="dt">datasources =</span> connections)[[<span class="dv">1</span>]]<span class="op">$</span><span class="st">`</span><span class="dt">Correlation Matrix</span><span class="st">`</span></span>
-<span id="cb29-2"><a href="generating-data-using-simstudy-methods.html#cb29-2"></a>Dnames =<span class="st"> </span><span class="kw">ds.colnames</span>(<span class="st">&quot;D&quot;</span>)<span class="op">$</span>server1</span>
-<span id="cb29-3"><a href="generating-data-using-simstudy-methods.html#cb29-3"></a><span class="kw">colnames</span>(corrs) &lt;-<span class="st"> </span>Dnames</span>
-<span id="cb29-4"><a href="generating-data-using-simstudy-methods.html#cb29-4"></a><span class="kw">rownames</span>(corrs) &lt;-<span class="st"> </span>Dnames</span></code></pre></div>
-<p>And use the correlation matrix and the properties of the normally distributed data to generate simulated data for them, adding this to the binary data we already generated:</p>
-<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="generating-data-using-simstudy-methods.html#cb30-1"></a>synth_data_sim &lt;-<span class="st"> </span><span class="kw">addCorData</span>(synth_data_sim, <span class="dt">idname =</span> <span class="st">&quot;id&quot;</span>, <span class="dt">mu =</span> means, <span class="dt">sigma =</span> sds, <span class="dt">corMatrix =</span> corrs[<span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>), <span class="kw">c</span>(<span class="dv">1</span><span class="op">:</span><span class="dv">5</span>)], <span class="dt">cnames =</span> columns)</span>
-<span id="cb30-2"><a href="generating-data-using-simstudy-methods.html#cb30-2"></a><span class="kw">head</span>(synth_data_sim)</span></code></pre></div>
-<pre><code>##    id GENDER DIS_CVA DIS_DIAB DIS_AMI  LAB_TSC LAB_TRIG   LAB_HDL
-## 1:  1      0       0        0       0 6.487816 2.939696 1.8085709
-## 2:  2      0       0        0       0 6.572320 1.177547 1.6476178
-## 3:  3      1       0        0       0 4.639590 2.521190 1.4719942
-## 4:  4      0       0        0       0 6.874953 4.589414 0.9989147
-## 5:  5      1       0        0       0 5.255427 1.393983 1.5635178
-## 6:  6      1       0        0       0 4.601389 1.397964 1.3029052
-##    LAB_GLUC_FASTING PM_BMI_CONTINUOUS
-## 1:         3.875665          27.16045
-## 2:         4.417573          25.54674
-## 3:         2.693822          23.57053
-## 4:         6.138792          30.18844
-## 5:         4.503395          23.57939
-## 6:         4.436538          29.14956</code></pre>
-<p><strong>TO DO</strong> the binary data and normal data are not linked through the correlation. I wonder how this could be done to improve the realism of the data.</p>
+<p>We first need some preparatory steps. Binary factor variables are converted to numeric to allow calculation of the probability of 0/1. We remove the factor variables from the data frame, and re-add them after conversion to numeric. Note that if categorical variables are in the data set, they will need to broken down into binary dummy variables before they can be used.</p>
+<div class="sourceCode" id="cb26"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb26-1"><a href="generating-data-using-simstudy-methods.html#cb26-1"></a>cont_vars =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;LAB_TSC&quot;</span>, <span class="st">&quot;LAB_TRIG&quot;</span>, <span class="st">&quot;LAB_HDL&quot;</span>, <span class="st">&quot;LAB_GLUC_FASTING&quot;</span>, <span class="st">&quot;PM_BMI_CONTINUOUS&quot;</span>)</span>
+<span id="cb26-2"><a href="generating-data-using-simstudy-methods.html#cb26-2"></a><span class="kw">ds.subset</span>(<span class="dt">x=</span><span class="st">&#39;D&#39;</span>, <span class="dt">subset=</span><span class="st">&#39;subD2&#39;</span>, <span class="dt">cols=</span>cont_vars)</span>
+<span id="cb26-3"><a href="generating-data-using-simstudy-methods.html#cb26-3"></a>factor_vars =<span class="st"> </span><span class="kw">c</span>(<span class="st">&quot;DIS_CVA&quot;</span>, <span class="st">&quot;DIS_DIAB&quot;</span>, <span class="st">&quot;DIS_AMI&quot;</span>)</span>
+<span id="cb26-4"><a href="generating-data-using-simstudy-methods.html#cb26-4"></a><span class="cf">for</span>(var <span class="cf">in</span> factor_vars){</span>
+<span id="cb26-5"><a href="generating-data-using-simstudy-methods.html#cb26-5"></a>  <span class="kw">ds.asNumeric</span>(<span class="kw">paste0</span>(<span class="st">&quot;D$&quot;</span>,var), <span class="dt">newobj =</span> <span class="kw">paste0</span>(var,<span class="st">&quot;_num&quot;</span>), <span class="dt">datasources =</span> connections)</span>
+<span id="cb26-6"><a href="generating-data-using-simstudy-methods.html#cb26-6"></a>  <span class="kw">ds.dataFrame</span>(<span class="dt">x=</span><span class="kw">c</span>(<span class="st">&quot;subD2&quot;</span>, <span class="kw">paste0</span>(var,<span class="st">&quot;_num&quot;</span>)), <span class="dt">newobj =</span> <span class="st">&quot;subD2&quot;</span>)</span>
+<span id="cb26-7"><a href="generating-data-using-simstudy-methods.html#cb26-7"></a>}</span>
+<span id="cb26-8"><a href="generating-data-using-simstudy-methods.html#cb26-8"></a></span>
+<span id="cb26-9"><a href="generating-data-using-simstudy-methods.html#cb26-9"></a>Dnames =<span class="st"> </span><span class="kw">ds.colnames</span>(<span class="st">&quot;subD2&quot;</span>)<span class="op">$</span>server1</span></code></pre></div>
+<p>Now we use <code>ds.cor()</code> to generate a correlation matrix. Similarly, <code>ds.mean()</code> and <code>ds.var()</code> are used to obtain the means and variances:</p>
+<p><strong>TO DO the previous part and this part can be rolled up and done with a helper function like we already prototyped for gcipdr. That is, you pass in the name of a dataframe (or a dataframe and a list of columns?) and it automatically does the categorical -&gt; binary -&gt; numeric, gets the corr matrix, means and vars, and generates the data set, recombines the binaries into categorical where applicable</strong></p>
+<div class="sourceCode" id="cb27"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb27-1"><a href="generating-data-using-simstudy-methods.html#cb27-1"></a>corrs =<span class="st"> </span><span class="kw">ds.cor</span>(<span class="dt">x=</span><span class="st">&quot;subD2&quot;</span>, <span class="dt">datasources =</span> connections)[[<span class="dv">1</span>]]<span class="op">$</span><span class="st">`</span><span class="dt">Correlation Matrix</span><span class="st">`</span></span>
+<span id="cb27-2"><a href="generating-data-using-simstudy-methods.html#cb27-2"></a></span>
+<span id="cb27-3"><a href="generating-data-using-simstudy-methods.html#cb27-3"></a><span class="kw">colnames</span>(corrs) &lt;-<span class="st"> </span>Dnames</span>
+<span id="cb27-4"><a href="generating-data-using-simstudy-methods.html#cb27-4"></a><span class="kw">rownames</span>(corrs) &lt;-<span class="st"> </span>Dnames</span>
+<span id="cb27-5"><a href="generating-data-using-simstudy-methods.html#cb27-5"></a></span>
+<span id="cb27-6"><a href="generating-data-using-simstudy-methods.html#cb27-6"></a>means =<span class="st"> </span><span class="kw">numeric</span>()</span>
+<span id="cb27-7"><a href="generating-data-using-simstudy-methods.html#cb27-7"></a>vars =<span class="st"> </span><span class="kw">numeric</span>()</span>
+<span id="cb27-8"><a href="generating-data-using-simstudy-methods.html#cb27-8"></a><span class="cf">for</span> (var <span class="cf">in</span> Dnames){</span>
+<span id="cb27-9"><a href="generating-data-using-simstudy-methods.html#cb27-9"></a>  means =<span class="st"> </span><span class="kw">c</span>(means, <span class="kw">ds.mean</span>(<span class="kw">paste0</span>(<span class="st">&quot;subD2$&quot;</span>,var), <span class="dt">datasources =</span> connections)<span class="op">$</span>Mean.by.Study[<span class="dv">1</span>])</span>
+<span id="cb27-10"><a href="generating-data-using-simstudy-methods.html#cb27-10"></a>  vars =<span class="st"> </span><span class="kw">c</span>(vars, <span class="kw">ds.var</span>(<span class="kw">paste0</span>(<span class="st">&quot;subD2$&quot;</span>,var), <span class="dt">datasources =</span> connections)<span class="op">$</span>Variance.by.Study[<span class="dv">1</span>])</span>
+<span id="cb27-11"><a href="generating-data-using-simstudy-methods.html#cb27-11"></a>}</span></code></pre></div>
+<p>Once we have the summary information, we use it to build a <strong>simstudy</strong> definition table. This is then used to generate the synthetic data.</p>
+<div class="sourceCode" id="cb28"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb28-1"><a href="generating-data-using-simstudy-methods.html#cb28-1"></a>def &lt;-<span class="st"> </span><span class="kw">defData</span>(<span class="dt">varname =</span> <span class="st">&quot;LAB_TSC&quot;</span>, <span class="dt">formula =</span> means[<span class="dv">1</span>], <span class="dt">variance =</span> vars[<span class="dv">1</span>], <span class="dt">dist =</span> <span class="st">&quot;normal&quot;</span>)</span>
+<span id="cb28-2"><a href="generating-data-using-simstudy-methods.html#cb28-2"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">2</span><span class="op">:</span><span class="kw">length</span>(cont_vars)){</span>
+<span id="cb28-3"><a href="generating-data-using-simstudy-methods.html#cb28-3"></a>  def &lt;-<span class="st"> </span><span class="kw">defData</span>(def, <span class="dt">varname =</span> cont_vars[i], <span class="dt">formula =</span> means[i], <span class="dt">variance =</span> vars[i], <span class="dt">dist =</span> <span class="st">&quot;normal&quot;</span>)</span>
+<span id="cb28-4"><a href="generating-data-using-simstudy-methods.html#cb28-4"></a>}</span>
+<span id="cb28-5"><a href="generating-data-using-simstudy-methods.html#cb28-5"></a></span>
+<span id="cb28-6"><a href="generating-data-using-simstudy-methods.html#cb28-6"></a><span class="cf">for</span> (i <span class="cf">in</span> <span class="dv">1</span><span class="op">:</span><span class="kw">length</span>(factor_vars)){</span>
+<span id="cb28-7"><a href="generating-data-using-simstudy-methods.html#cb28-7"></a>  def &lt;-<span class="st"> </span><span class="kw">defData</span>(def, <span class="dt">varname =</span> factor_vars[i], <span class="dt">formula =</span> means[<span class="kw">length</span>(cont_vars)<span class="op">+</span>i], <span class="dt">dist =</span> <span class="st">&quot;binary&quot;</span>)</span>
+<span id="cb28-8"><a href="generating-data-using-simstudy-methods.html#cb28-8"></a>}</span>
+<span id="cb28-9"><a href="generating-data-using-simstudy-methods.html#cb28-9"></a></span>
+<span id="cb28-10"><a href="generating-data-using-simstudy-methods.html#cb28-10"></a>dd &lt;-<span class="st"> </span><span class="kw">genCorFlex</span>(<span class="dv">10000</span>, def, <span class="dt">rho =</span> <span class="ot">NULL</span>, <span class="dt">tau =</span> <span class="ot">NULL</span>, <span class="dt">corMatrix =</span> corrs)</span>
+<span id="cb28-11"><a href="generating-data-using-simstudy-methods.html#cb28-11"></a><span class="kw">head</span>(dd)</span></code></pre></div>
+<pre><code>##    id  LAB_TSC LAB_TRIG  LAB_HDL LAB_GLUC_FASTING PM_BMI_CONTINUOUS DIS_CVA
+## 1:  1 5.061832 1.764900 1.631207         4.229844          18.43103       0
+## 2:  2 7.197848 1.792050 1.618762         4.802709          29.55680       0
+## 3:  3 5.840460 4.049302 1.687452         5.016152          34.53278       0
+## 4:  4 6.871120 1.988825 1.605039         4.044210          33.33789       0
+## 5:  5 5.263524 2.142466 1.249333         5.481163          26.41777       0
+## 6:  6 4.939404 0.240306 1.811101         2.680227          23.40127       0
+##    DIS_DIAB DIS_AMI
+## 1:        0       0
+## 2:        0       0
+## 3:        0       0
+## 4:        0       0
+## 5:        0       0
+## 6:        0       0</code></pre>
+<p>While it is most desirable to generate the data in this way, in some situations there might be a reason to generate variables without worrying about their correlation to the other variables. In this case standard <strong>simstudy</strong> functions could be used. For example, we might need an <em>AGE</em> variable and are not able to include it in the steps illustrated above. We could simply add this variable as follows:</p>
+<div class="sourceCode" id="cb30"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb30-1"><a href="generating-data-using-simstudy-methods.html#cb30-1"></a>def2 &lt;-<span class="st"> </span><span class="kw">defData</span>(<span class="dt">varname =</span> <span class="st">&quot;AGE&quot;</span>, <span class="dt">formula =</span> <span class="dv">40</span>, <span class="dt">variance =</span> <span class="dv">10</span>, <span class="dt">dist =</span> <span class="st">&quot;normal&quot;</span>)</span>
+<span id="cb30-2"><a href="generating-data-using-simstudy-methods.html#cb30-2"></a></span>
+<span id="cb30-3"><a href="generating-data-using-simstudy-methods.html#cb30-3"></a>dd &lt;-<span class="st"> </span><span class="kw">addColumns</span>(def2, dd)</span>
+<span id="cb30-4"><a href="generating-data-using-simstudy-methods.html#cb30-4"></a><span class="kw">head</span>(dd)</span></code></pre></div>
+<pre><code>##    id  LAB_TSC LAB_TRIG  LAB_HDL LAB_GLUC_FASTING PM_BMI_CONTINUOUS DIS_CVA
+## 1:  1 5.061832 1.764900 1.631207         4.229844          18.43103       0
+## 2:  2 7.197848 1.792050 1.618762         4.802709          29.55680       0
+## 3:  3 5.840460 4.049302 1.687452         5.016152          34.53278       0
+## 4:  4 6.871120 1.988825 1.605039         4.044210          33.33789       0
+## 5:  5 5.263524 2.142466 1.249333         5.481163          26.41777       0
+## 6:  6 4.939404 0.240306 1.811101         2.680227          23.40127       0
+##    DIS_DIAB DIS_AMI      AGE
+## 1:        0       0 34.97744
+## 2:        0       0 35.67096
+## 3:        0       0 41.22921
+## 4:        0       0 41.76373
+## 5:        0       0 39.09275
+## 6:        0       0 38.46279</code></pre>
 
 </div>
             </section>
@@ -266,7 +282,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
         </div>
       </div>
 <a href="synthpop.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="generating-data-using-gcipdr-methods.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="harmonisation-with-synthetic-data.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>

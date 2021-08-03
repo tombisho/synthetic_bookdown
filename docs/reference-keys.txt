@@ -9,7 +9,6 @@ overview-of-steps
 prerequisites-1
 synthpop
 generating-data-using-simstudy-methods
-generating-data-using-gcipdr-methods
 harmonisation-with-synthetic-data
 getting-set-up
 do-the-work
