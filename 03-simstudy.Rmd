@@ -1,6 +1,6 @@
 # Generating data using simstudy methods
 
-In this chapter we will look at how to generate synthetic data on the client side using DataSHIELD functions to extract characteristics of the data set from the server side.
+In this chapter we will look at how to generate synthetic data on the client side using DataSHIELD functions to extract summary characteristics of the data set from the server side.
 
 Again we need to build a login object for the server that holds the data:
 
@@ -32,58 +32,59 @@ library("dsBaseClient")
 
 Then we can extract some parameters from the real data using DataSHIELD commands and use these to generate our synthetic data.
 
-We will look at the binary variables first, and get the probabilities for 0/1:
+We first need some preparatory steps. Binary factor variables are converted to numeric to allow calculation of the probability of 0/1. We remove the factor variables from the data frame, and re-add them after conversion to numeric. Note that if categorical variables are in the data set, they will need to broken down into binary dummy variables before they can be used.
 
-```{r bin probs}
-factor_vars = c("DIS_CVA", "DIS_DIAB", "DIS_AMI" )
-probs = numeric()
+```{r warning=FALSE,"simst prep steps"}
+cont_vars = c("LAB_TSC", "LAB_TRIG", "LAB_HDL", "LAB_GLUC_FASTING", "PM_BMI_CONTINUOUS")
+ds.subset(x='D', subset='subD2', cols=cont_vars)
+factor_vars = c("DIS_CVA", "DIS_DIAB", "DIS_AMI")
 for(var in factor_vars){
   ds.asNumeric(paste0("D$",var), newobj = paste0(var,"_num"), datasources = connections)
-  probs = c(probs, ds.mean(paste0(var,"_num"), datasources = connections)$Mean.by.Study[1])
+  ds.dataFrame(x=c("subD2", paste0(var,"_num")), newobj = "subD2")
 }
+
+Dnames = ds.colnames("subD2")$server1
 ```
+Now we use `ds.cor()` to generate a correlation matrix. Similarly, `ds.mean()` and `ds.var()` are used to obtain the means and variances:
 
-**TO DO helper function for the part above?**
-**for the next part, write a function to build a csv file to avoid repeated calls**
+**TO DO the previous part and this part can be rolled up and done with a helper function like we already prototyped for gcipdr. That is, you pass in the name of a dataframe (or a dataframe and a list of columns?) and it automatically does the categorical -> binary -> numeric, gets the corr matrix, means and vars, and generates the data set, recombines the binaries into categorical where applicable**
 
-Now we use **simstudy** to generate the binary variables:
 
-```{r bin gen}
-def <- defData(varname = "GENDER", dist = "binary", 
-               formula = "0.5")
-def <- defData(def, varname = "DIS_CVA", dist = "binary", 
-               formula = probs[1])
-def <- defData(def, varname = "DIS_DIAB", dist = "binary", 
-               formula = probs[2])
-def <- defData(def, varname = "DIS_AMI", dist = "binary", 
-               formula = probs[3])
-synth_data_sim <- genData(1000, def)
-```
+```{r simst corr}
+corrs = ds.cor(x="subD2", datasources = connections)[[1]]$`Correlation Matrix`
 
-There are some variables that we expect to be normally distributed, so we will extract the mean and standard deviation:
-**TO DO allow passing in vector? or use dshelper?**
-```{r mean sd}
-columns = c("LAB_TSC", "LAB_TRIG", "LAB_HDL", "LAB_GLUC_FASTING", "PM_BMI_CONTINUOUS")
-means = numeric()
-sds = numeric()
-for (var in columns){
-  means = c(means, ds.mean(paste0("D$",var), datasources = connections)$Mean.by.Study[1])
-  sds = c(sds, ds.var(paste0("D$",var), datasources = connections)$Variance.by.Study[1]^0.5)
-      }
-```
-We can obtain the correlation matrix from DataSHIELD:
-
-```{r corrs}
-corrs = ds.cor(x="D", datasources = connections)[[1]]$`Correlation Matrix`
-Dnames = ds.colnames("D")$server1
 colnames(corrs) <- Dnames
 rownames(corrs) <- Dnames
+
+means = numeric()
+vars = numeric()
+for (var in Dnames){
+  means = c(means, ds.mean(paste0("subD2$",var), datasources = connections)$Mean.by.Study[1])
+  vars = c(vars, ds.var(paste0("subD2$",var), datasources = connections)$Variance.by.Study[1])
+}
+
 ```
 
-And use the correlation matrix and the properties of the normally distributed data to generate simulated data for them, adding this to the binary data we already generated:
-```{r norm gen}
-synth_data_sim <- addCorData(synth_data_sim, idname = "id", mu = means, sigma = sds, corMatrix = corrs[c(1:5), c(1:5)], cnames = columns)
-head(synth_data_sim)
-```
+Once we have the summary information, we use it to build a **simstudy** definition table. This is then used to generate the synthetic data.
 
-**TO DO** the binary data and normal data are not linked through the correlation. I wonder how this could be done to improve the realism of the data.
+```{r simstudy gen data}
+def <- defData(varname = "LAB_TSC", formula = means[1], variance = vars[1], dist = "normal")
+for (i in 2:length(cont_vars)){
+  def <- defData(def, varname = cont_vars[i], formula = means[i], variance = vars[i], dist = "normal")
+}
+
+for (i in 1:length(factor_vars)){
+  def <- defData(def, varname = factor_vars[i], formula = means[length(cont_vars)+i], dist = "binary")
+}
+
+dd <- genCorFlex(10000, def, rho = NULL, tau = NULL, corMatrix = corrs)
+head(dd)
+```
+While it is most desirable to generate the data in this way, in some situations there might be a reason to generate variables without worrying about their correlation to the other variables. In this case standard **simstudy** functions could be used. For example, we might need an *AGE* variable and are not able to include it in the steps illustrated above. We could simply add this variable as follows:
+
+```{r add a variable}
+def2 <- defData(varname = "AGE", formula = 40, variance = 10, dist = "normal")
+
+dd <- addColumns(def2, dd)
+head(dd)
+```
