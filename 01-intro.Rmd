@@ -12,7 +12,7 @@ Knowledge of R. For harmonisation, knowledge of JavaScript and or MagmaScript is
 
 The benefits of the federated approach are that data can be harmonised and analysed without giving complete access to or transferring the data. A less desirable consequence of this approach is that it is more challenging for data experts to harmonise data to common standards, and for analysts to run their scripts, when the data are not tangibly in front of them. One could say that it is like trying to build a Lego model while wearing a blindfold.
 
-With harmonisation, some groups have been through the process of transferring and centralising the data, but this negates one of the benefits of the federated approach. While it is only necessary for the harmonisation team to receive the data, a lot of bureaucracy is required. Others have mandated that each group harmonise their own data. The challenge with this approach is that there can be inconsistencies in the approach of different teams, and each team needs training and expertise in the harmonisation process.
+With harmonisation, some groups have been through the process of transferring and centralising the data, but this negates one of the benefits of the federated approach. While it is only necessary for the harmonisation team to receive the data, a lot of bureaucracy is required because a full data transfer is still needed. Others have mandated that each group harmonise their own data. The challenge with this approach is that there can be inconsistencies in the approach of different teams, and each team needs training and expertise in the harmonisation process.
 
 Analysis via DataSHIELD has no such compromises and requires the analyst to make their own checks to validate that their analysis is progressing as planned. This has to be done via non-disclosive information about the data that the analysis has generated. For example, to confirm that a subset into male and female groups has been successful, the analyst could ask for a summary of the original gender column and check the counts of male and female participants match the length of the subset dataframes. These extra steps are fine, but it can be more tricky to confirm the behaviour of more complex functions such as `ds.lexis` and `ds.reshape`.
 
@@ -20,16 +20,16 @@ Analysis via DataSHIELD has no such compromises and requires the analyst to make
 
 R packages like **synthpop** [@synthpop] have been developed to generate realistic synthetic data that is not disclosive. A dsSynthpop package could be used to generate a synthetic data set on the client side by running the generation on the server side. Users can then perform harmonisation while working with full access to synthetic data on the client to confirm algorithms are working as expected. When the user is happy that the algorithms are working correctly, they can then be applied to the real data on the server side. The user therefore has the benefit of being able to see the data they are working with, but without the need to go through labourious data transfer processes. The same benefits are realised for an analysis user.
 
-Other packages that provide synthetic data generation are **simstudy** and **gcipdr**. Simstudy requires the user to define the characteristics of variables and their relationships. However, non-disclosive access via DataSHIELD can help provide these summary statistics. There is also the benefit that the user then has precise control over the nature of the synthetic data generated. Likewise, gcipdr makes it easy for users to extract features such as mean, standard deviation and correlations via DataSHIELD, and use these to provide a more automated generation of the synthetic data. In **dsSynthetic** we provide functionality built on **simstudy** as it is more mature, has less complex dependencies and is faster. The compromise is that **gcipdr** should provide more accurate results, as it was designed to provide synthetic data that would allow actual inferences to be drawn as from the real data. However for our purposes we only want synthetic data that is realistic enough to write harmonisation code and plan analysis code: this work is then applied to the real data to get the inferences.
+Other packages that provide synthetic data generation are **simstudy** and **gcipdr**. Simstudy requires the user to define the characteristics of variables and their relationships. However, non-disclosive access via DataSHIELD can help provide these summary statistics such as means, variances and correlations. There is also the benefit that the user then has precise control over the nature of the synthetic data generated. Likewise, **gcipdr** makes it easy for users to extract features such as mean, standard deviation and correlations via DataSHIELD, and use these to provide a more automated generation of the synthetic data. In **dsSynthetic** we provide functionality built on **simstudy** as it is more mature, has less complex dependencies and is faster. The compromise is that **gcipdr** should provide more accurate results, as it was designed to provide synthetic data that would allow actual inferences to be drawn as from the real data. However for our purposes we only want synthetic data that is realistic enough to write harmonisation code and plan analysis code: this work is then applied to the real data to get the inferences.
 
 
 ## Overview of steps
 
 The hypothesis can be described by the following steps for harmonisation:
 
-1. The data custodian uploads the raw data to the server side and installs the server side pack `dsSynthetic`
-2. The user install the package `dsSyntheticClient` on the client side
-3. The user calls functions in the `dsSyntheticClient` package to generate a synthetic but non-disclosive data set which is returned to the client side.
+1. The data custodian uploads the raw data to the server side and installs the server side package `dsSynthetic`
+2. The user installs the package `dsSyntheticClient` on the client side
+3. The user calls functions in the `dsSyntheticClient` package to generate a synthetic but non-disclosive data set which is returned to the client side or is built on the client side.
 4. With the synthetic data on the client side, the user can view the data and build harmonisation algorithms. They will be able to see the results of the algorithms for each row of data.
 5. When the algorithms are complete, they can be implemented on Opal using the real data.
 
@@ -40,15 +40,26 @@ knitr::include_graphics(rep("images/dssynthetic1.png"))
 ```
 And for analysis:
 
-1. Assuming steps #1 and #2 above are complete, the user calls functions in the `dsSyntheticClient` package to generate a synthetic but non-disclosive data set which is returned to the client side.
+1. Assuming steps #1, #2 and #3 above are complete, the user calls functions in the `dsSyntheticClient` package to generate a synthetic but non-disclosive data set which is returned to the client side.
 2. With the synthetic data on the client side, the user then starts a `DSLite` instance and places the synthetic data into it.
 3. The user can then write their analysis using DataSHIELD commands against the DSLite instance. DSLite then allows the user to return any object on the server side. Therefore users can see the results of each step of their script for each row of data.
-4. When the analysis script is complete, the user can run it against the real data on the server side.
+4. When the analysis script works as required, the user can run it against the real data on the server side.
 
 ```{r echo=FALSE, fig.cap="Prototyping DataSHIELD analysis using synthetic data on DSLite"}
 knitr::include_graphics(rep("images/dssynthetic2.png"))
 
 ```
+
+## Working with single studies
+
+Some functions in the **dsSynthetic** packages are currently written to work with single studies. This means that these functions expect to receive a single connection object only, or they will throw an error. If you wish to use an existing connection object with connections to multiple servers, you can select a single connection like this:
+
+```{r, eval=FALSE}
+connections[1]
+connections$server1
+```
+The functions that require single connections are those involved in building the synthetic data on the client side, which can be a computationally intensive exercise. Therefore it is sensible to only do this for one study at a time.
+Also, in the case of harmonisation, the variables present will be different in different studies and as such will cause problems for many standard DataSHIELD functions (which typically require the same variables in all studies).
 
 ## Prerequisites
 

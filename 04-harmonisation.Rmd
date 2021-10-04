@@ -27,7 +27,7 @@ Now we can start a JavaScript session and load the additional MagmaScript functi
 ct2 = v8()
 ct2$source("https://raw.githubusercontent.com/tombisho/dsSyntheticClient/main/MagmaScript.min.js")
 synth_data = read.csv(file = "data/synth_data.csv")
-ct2$assign("synth_data", synth_data)
+ct2$assign("als_syn", synth_data)
 ```
 
 We then go into the console, grab a row of data and write some JavaScript:

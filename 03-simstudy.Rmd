@@ -2,7 +2,7 @@
 
 In this chapter we will look at how to generate synthetic data on the client side using DataSHIELD functions to extract summary characteristics of the data set from the server side.
 
-Again we need to build a login object for the server that holds the data:
+Again we need to build a login object for the server that holds the data. Note that the **dsSynthetic** functions have been written to work with a single connection:
 
 ```{r log in object simstudy}
 builder <- DSI::newDSLoginBuilder()
@@ -15,7 +15,7 @@ logindata <- builder$build()
 
 And then we establish a connection to the server:
 
-```{r log in simstudy}
+```{r message=FALSE, "log in simstudy"}
 library(DSOpal)
 if(exists("connections")){
   datashield.logout(conns = connections)
@@ -28,63 +28,42 @@ First we load the library
 ```{r simstudy}
 library("simstudy")
 library("dsBaseClient")
+library("dsSyntheticClient")
 ```
 
-Then we can extract some parameters from the real data using DataSHIELD commands and use these to generate our synthetic data.
+The **simstudy** method uses a function called `genCorFlex` (see **simstudy** help for more details). This function is currently not able to support categorical distributions, but does support binary distributions. Therefore we need to convert factor variables with more than 2 levels into a series of binary dummy variables. For example, the `PM_BMI_CATEGORICAL` variable has levels 1, 2 and 3. This will need to be converted into 2 binary variables with 2 levels. A helper function is provided to make this process easier.
 
-We first need some preparatory steps. Binary factor variables are converted to numeric to allow calculation of the probability of 0/1. We remove the factor variables from the data frame, and re-add them after conversion to numeric. Note that if categorical variables are in the data set, they will need to broken down into binary dummy variables before they can be used.
+```{r message=FALSE, "prep binaries"}
+ds.binary.helper(dataframe = "D", factor_variables = "PM_BMI_CATEGORICAL", newobj = "my.bin", datasources = connections)
+```
+Looking at the new dataframe, which has the 2 binary variables in it:
 
-```{r warning=FALSE,"simst prep steps"}
+```{r message=FALSE}
+ds.summary("my.bin", datasources = connections)
+```
+We will make a new dataframe without the original `PM_BMI_CATEGORICAL` variable but with the new binaries:
+```{r warning=FALSE, message=FALSE}
+vars = c("LAB_TSC", "LAB_TRIG", "LAB_HDL", "LAB_GLUC_FASTING", "PM_BMI_CONTINUOUS", "DIS_CVA", "DIS_DIAB", "DIS_AMI", "GENDER")
+ds.subset(x="D", subset="D2", cols=vars, datasources = connections)
+ds.dataFrame(x = c("D2","my.bin"), newobj = "new_frame", datasources = connections)
+```
+Now we are ready to generate the synthetic data using the `ds.genCorFlex.helper` function. We need to provide a vector of continuous variables and factor variables:
+```{r warning=FALSE,message=FALSE}
 cont_vars = c("LAB_TSC", "LAB_TRIG", "LAB_HDL", "LAB_GLUC_FASTING", "PM_BMI_CONTINUOUS")
-ds.subset(x='D', subset='subD2', cols=cont_vars)
-factor_vars = c("DIS_CVA", "DIS_DIAB", "DIS_AMI")
-for(var in factor_vars){
-  ds.asNumeric(paste0("D$",var), newobj = paste0(var,"_num"), datasources = connections)
-  ds.dataFrame(x=c("subD2", paste0(var,"_num")), newobj = "subD2")
-}
-
-Dnames = ds.colnames("subD2")$server1
+factor_vars = c( "DIS_CVA", "DIS_DIAB", "DIS_AMI", "GENDER", "X1_PM_BMI_CATEGORICAL", "X2_PM_BMI_CATEGORICAL")
+dd = ds.genCorFlex.helper(dataframe = "new_frame", cont_variables = cont_vars, factor_variables = factor_vars, num_rows = 10000, datasources = connections)
 ```
-Now we use `ds.cor()` to generate a correlation matrix. Similarly, `ds.mean()` and `ds.var()` are used to obtain the means and variances:
-
-**TO DO the previous part and this part can be rolled up and done with a helper function like we already prototyped for gcipdr. That is, you pass in the name of a dataframe (or a dataframe and a list of columns?) and it automatically does the categorical -> binary -> numeric, gets the corr matrix, means and vars, and generates the data set, recombines the binaries into categorical where applicable**
-
-
-```{r simst corr}
-corrs = ds.cor(x="subD2", datasources = connections)[[1]]$`Correlation Matrix`
-
-colnames(corrs) <- Dnames
-rownames(corrs) <- Dnames
-
-means = numeric()
-vars = numeric()
-for (var in Dnames){
-  means = c(means, ds.mean(paste0("subD2$",var), datasources = connections)$Mean.by.Study[1])
-  vars = c(vars, ds.var(paste0("subD2$",var), datasources = connections)$Variance.by.Study[1])
-}
-
-```
-
-Once we have the summary information, we use it to build a **simstudy** definition table. This is then used to generate the synthetic data.
-
-```{r simstudy gen data}
-def <- defData(varname = "LAB_TSC", formula = means[1], variance = vars[1], dist = "normal")
-for (i in 2:length(cont_vars)){
-  def <- defData(def, varname = cont_vars[i], formula = means[i], variance = vars[i], dist = "normal")
-}
-
-for (i in 1:length(factor_vars)){
-  def <- defData(def, varname = factor_vars[i], formula = means[length(cont_vars)+i], dist = "binary")
-}
-
-dd <- genCorFlex(10000, def, rho = NULL, tau = NULL, corMatrix = corrs)
+If all has gone well the synthetic data should have a similar structure and properties to the real data:
+```{r}
 head(dd)
-```
-While it is most desirable to generate the data in this way, in some situations there might be a reason to generate variables without worrying about their correlation to the other variables. In this case standard **simstudy** functions could be used. For example, we might need an *AGE* variable and are not able to include it in the steps illustrated above. We could simply add this variable as follows:
 
-```{r add a variable}
-def2 <- defData(varname = "AGE", formula = 40, variance = 10, dist = "normal")
-
-dd <- addColumns(def2, dd)
-head(dd)
 ```
+We can reconstruct the `PM_BMI_CATEGORICAL` variable as follows:
+```{r}
+dd$PM_BMI_CATEGORICAL = 1 + dd$X1_PM_BMI_CATEGORICAL_num + dd$X2_PM_BMI_CATEGORICAL_num
+```
+Such that it now has levels 1, 2 and 3.
+
+## Brief comments on the validity of the data
+
+In the example above we chose to synthetically generate the variable `PM_BMI_CATEGORICAL`. This variable is actually derived from the continuous variable `PM_BMI_CONTINUOUS`, with (say) BMI <25 being category 1, 25<= BMI < 30 being category 2 etc. Becuase of the probabilistic way in which the data are generated, this categorisation is not enforced in the data synthesis. It might be better to generate the continuous variable only and add the categorical variable afterwards.

@@ -2,7 +2,7 @@
 
 In this chapter we will look at how to generate synthetic data on the server side using DataSHIELD functions, based on **synthpop** functionality.
 
-First we need to build a login object for the server that holds the data:
+First we need to build a login object for the server that holds the data. Note that the **dsSynthetic** functions have been written to work with a single connection:
 
 ```{r log in object}
 builder <- DSI::newDSLoginBuilder()
@@ -43,4 +43,6 @@ Lastly we save our data for later chapters:
 ```{r synthpop write}
 write.csv(x = synth_data, file = "data/synth_data.csv")
 ```
+## Brief comments on the validity of the data
 
+In the example above we chose to synthetically generate the variable `PM_BMI_CATEGORICAL`. This variable is actually derived from the continuous variable `PM_BMI_CONTINUOUS`, with (say) BMI <25 being category 1, 25<= BMI < 30 being category 2 etc. Becuase of the probabilistic way in which the data are generated, this categorisation is not enforced in the data synthesis. It might be better to generate the continuous variable only and add the categorical variable afterwards.

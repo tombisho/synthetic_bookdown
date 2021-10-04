@@ -24,7 +24,7 @@ builder$append(server="server1", url="https://opal-sandbox.mrc-epid.cam.ac.uk",
                table = "DASIM.DASIM1")
 logindata <- builder$build()
 ```
-Then perform the log in to ther server:
+Then perform the log in to the server:
 ```{r}
 library(DSOpal)
 if(exists("connections")){
