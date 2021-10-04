@@ -2,6 +2,18 @@
 
 In this chapter we will look at how to generate synthetic data on the client side using DataSHIELD functions to extract summary characteristics of the data set from the server side.
 
+## Overview
+
+The steps for using the **simstudy** to generate a synthetic data set:
+
+1. Connect to the server
+2. Split factor variables in dummy (binary) variables
+3. Prepare lists of continuous and factor variables
+4. Generate synthetic data set
+5. Recombine dummy variables.
+
+## Details
+
 Again we need to build a login object for the server that holds the data. Note that the **dsSynthetic** functions have been written to work with a single connection:
 
 ```{r log in object simstudy}
@@ -66,4 +78,10 @@ Such that it now has levels 1, 2 and 3.
 
 ## Brief comments on the validity of the data
 
-In the example above we chose to synthetically generate the variable `PM_BMI_CATEGORICAL`. This variable is actually derived from the continuous variable `PM_BMI_CONTINUOUS`, with (say) BMI <25 being category 1, 25<= BMI < 30 being category 2 etc. Becuase of the probabilistic way in which the data are generated, this categorisation is not enforced in the data synthesis. It might be better to generate the continuous variable only and add the categorical variable afterwards.
+In the example above we chose to synthetically generate the variable `PM_BMI_CATEGORICAL`. This variable is actually derived from the continuous variable `PM_BMI_CONTINUOUS`, with (say) BMI <25 being category 1, 25<= BMI < 30 being category 2 etc. Because of the probabilistic way in which the data are generated, this categorisation is not enforced in the data synthesis. It might be better to generate the continuous variable only and add the categorical variable afterwards.
+
+## Comparing **synthpop** and **simstudy** approaches
+
+The main difference between the **synthpop** and **simstudy** approaches is that the synthesis takes place on the server side with **synthpop** and on the client side with **simstudy**.
+
+TO DO: Computational load, what algorithms, amount of control

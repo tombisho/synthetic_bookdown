@@ -19,3 +19,6 @@ start-dslite-local-instance
 working-with-single-studies
 brief-comments-on-the-validity-of-the-data
 brief-comments-on-the-validity-of-the-data-1
+fig:unnamed-chunk-5
+overview
+details

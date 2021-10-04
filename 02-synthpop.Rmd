@@ -2,6 +2,10 @@
 
 In this chapter we will look at how to generate synthetic data on the server side using DataSHIELD functions, based on **synthpop** functionality.
 
+The `syn` function in the **synthpop** package has many detailed options for optimising the generation of synthetic data. A limited number of these options are available in the **dsSynthetic** package. Details of how to use these options can be found in the vignettes for **synthpop**.
+
+##Details
+
 First we need to build a login object for the server that holds the data. Note that the **dsSynthetic** functions have been written to work with a single connection:
 
 ```{r log in object}
