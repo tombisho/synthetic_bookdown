@@ -31,3 +31,14 @@ synopsis
 analysis
 harmonisation
 simstudy
+get-set-up
+generate-synthetic-data-with-synthpop
+write-some-analysis-code
+run-corrected-code-on-real-data
+getting-set-up-2
+experiment-with-a-single-row
+test-on-whole-dataset
+run-the-code-on-the-real-data
+getting-set-up-3
+preparing-to-generate-synthetic-data
+generating-synthetic-data

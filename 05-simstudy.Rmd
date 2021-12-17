@@ -1,6 +1,6 @@
 # Generating data using simstudy methods {#simstudy}
 
-In this chapter we will look at how to generate synthetic data on the client side using DataSHIELD functions to extract summary characteristics of the data set from the server side.
+In this chapter we will look at how to generate synthetic data on the client side using DataSHIELD functions to extract summary characteristics of the data set from the server side. These parameters are then used with the **simstudy** package to generate the synthetic data. This method requires more work to extract the parameters correctly, and the **dsSyntheticClient** package provides some helper functions. The advantage of working in this way is that it may be preferred by data custodians as only summary statistics leave the remote server. While using **synthpop** should not "leak" personal data when the synthetic data is generated on the server side, this still may be of concern to some data custodians.
 
 ## Overview
 
@@ -12,7 +12,7 @@ The steps for using the **simstudy** to generate a synthetic data set:
 4. Generate synthetic data set
 5. Recombine dummy variables.
 
-## Details
+## Getting set up
 
 Again we need to build a login object for the server that holds the data. Note that the **dsSynthetic** functions have been written to work with a single connection:
 
@@ -34,10 +34,12 @@ if(exists("connections")){
 }
 connections <- datashield.login(logins=logindata, assign = TRUE)
 ```
+
+## Preparing to generate synthetic data
 This method builds on the fundamentals of the **simstudy** package. There is a good introduction to this package [here](https://kgoldfeld.github.io/simstudy/index.html).
 
 First we load the library
-```{r simstudy}
+```{r simstudy, message=FALSE}
 library("simstudy")
 library("dsBaseClient")
 library("dsSyntheticClient")
@@ -59,6 +61,8 @@ vars = c("LAB_TSC", "LAB_TRIG", "LAB_HDL", "LAB_GLUC_FASTING", "PM_BMI_CONTINUOU
 ds.subset(x="D", subset="D2", cols=vars, datasources = connections)
 ds.dataFrame(x = c("D2","my.bin"), newobj = "new_frame", datasources = connections)
 ```
+## Generating synthetic data
+
 Now we are ready to generate the synthetic data using the `ds.genCorFlex.helper` function. We need to provide a vector of continuous variables and factor variables:
 ```{r warning=FALSE,message=FALSE}
 cont_vars = c("LAB_TSC", "LAB_TRIG", "LAB_HDL", "LAB_GLUC_FASTING", "PM_BMI_CONTINUOUS")
@@ -80,8 +84,3 @@ Such that it now has levels 1, 2 and 3.
 
 In the example above we chose to synthetically generate the variable `PM_BMI_CATEGORICAL`. This variable is actually derived from the continuous variable `PM_BMI_CONTINUOUS`, with (say) BMI <25 being category 1, 25<= BMI < 30 being category 2 etc. Because of the probabilistic way in which the data are generated, this categorisation is not enforced in the data synthesis. It might be better to generate the continuous variable only and add the categorical variable afterwards.
 
-## Comparing **synthpop** and **simstudy** approaches
-
-The main difference between the **synthpop** and **simstudy** approaches is that the synthesis takes place on the server side with **synthpop** and on the client side with **simstudy**.
-
-TO DO: Computational load, what algorithms, amount of control

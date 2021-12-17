@@ -20,7 +20,7 @@ With harmonisation, one option is to transfer and centralise the data, but this 
 
 R packages like **synthpop** [@synthpop] have been developed to generate realistic synthetic data that is not disclosive from an original, sensitive dataset. A DataSHIELD package built on **synthpop** functionality could be used to generate a synthetic data set on the server side which is then transfered to the client side. Users can then develop code on the client side while working with full access to synthetic data to confirm that it is working as expected. When the user is happy that the code is working correctly, it can then be applied to the real data on the server side. The user therefore has the benefit of being able to see the data they are working with, but without the need to go through labourious data transfer processes.
 
-Other packages that provide synthetic data generation are **simstudy** and **gcipdr**. Simstudy requires the user to define the characteristics of variables and their relationships. However, non-disclosive access via DataSHIELD can help provide these summary statistics such as means, variances and correlations. There is also the benefit that the user then has precise control over the nature of the synthetic data generated, and the data custodian knows that only summary statistics have been extracted. Likewise, **gcipdr** makes it easy for users to extract features such as mean, standard deviation and correlations via DataSHIELD, and use these to provide a more automated generation of the synthetic data. In **dsSynthetic** we provide functionality built on **simstudy** as it is more mature, has less complex dependencies and is faster. The compromise is that **gcipdr** should provide more accurate results, as it was designed to provide synthetic data that would allow actual inferences to be drawn as from the real data. However for our purposes we only want synthetic data that is realistic enough to develop analysis code and write harmonisation code: this work is then applied to the real data to get the inferences.
+Other packages that provide synthetic data generation are **simstudy** [@simstudy] and **gcipdr**. Simstudy requires the user to define the characteristics of variables and their relationships. However, non-disclosive access via DataSHIELD can help provide these summary statistics such as means, variances and correlations. There is also the benefit that the user then has precise control over the nature of the synthetic data generated, and the data custodian knows that only summary statistics have been extracted. Likewise, **gcipdr** makes it easy for users to extract features such as mean, standard deviation and correlations via DataSHIELD, and use these to provide a more automated generation of the synthetic data. In **dsSynthetic** we provide functionality built on **simstudy** as it is more mature, has less complex dependencies and is faster. The compromise is that **gcipdr** should provide more accurate results, as it was designed to provide synthetic data that would allow actual inferences to be drawn as from the real data. However for our purposes we only want synthetic data that is realistic enough to develop analysis code and write harmonisation code: this work is then applied to the real data to get the inferences.
 
 
 ## Overview of steps
@@ -56,20 +56,20 @@ To run the code examples in this book and use **dsSynthetic** in your own work y
 
 Using DataSHIELD on the client side requires the following R packages to be installed:
 
-```{r install_ds, eval=FALSE}
+```{r install_ds, message=FALSE}
 install.packages("DSOpal", dependencies = TRUE)
 install.packages("dsBaseClient", repos = c("https://cloud.r-project.org", "https://cran.obiba.org"), dependencies = TRUE)
 ```
 
 To use **dsSynthetic** on the client side, the client package needs to be installed:
 
-```{r requiredRPackages}
+```{r requiredRPackages, message=FALSE}
 devtools::install_github("tombisho/dsSyntheticClient", dependencies = TRUE)
 install.packages("simstudy")
 ```
 
 For chapter \@ref(analysis) we require `DSLite`, `dsBase` and `dsSynthetic` to be installed. This allows us to simulate the server side enviroment on the client side:
-```{r install DSLite}
+```{r install DSLite, message=FALSE}
 install.packages("DSLite", dependencies = TRUE)
 install.packages("dsBase", repos = c("https://cloud.r-project.org", "https://cran.obiba.org"), dependencies = TRUE)
 devtools::install_github("tombisho/dsSyntheticClient", dependencies = TRUE, ref = "main")
@@ -77,9 +77,8 @@ devtools::install_github("tombisho/dsSyntheticClient", dependencies = TRUE, ref 
 
 For chapter \@ref(harmonisation) we need to install the R `V8` package to simulate JavaScript in R. First some system level packages may need to be installed: On Debian / Ubuntu install either `libv8-dev` or `libnode-dev`, on Fedora use `v8-devel`.
 
-```{r install V8}
+```{r install V8, message=FALSE}
 install.packages("V8")
-library("V8")
 ```
 
 

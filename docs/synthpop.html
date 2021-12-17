@@ -150,8 +150,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="2.6" data-path="intro.html"><a href="intro.html#prerequisites"><i class="fa fa-check"></i><b>2.6</b> Prerequisites</a></li>
 </ul></li>
 <li class="chapter" data-level="3" data-path="synthpop.html"><a href="synthpop.html"><i class="fa fa-check"></i><b>3</b> Generating data using synthpop methods</a><ul>
-<li class="chapter" data-level="3.1" data-path="synthpop.html"><a href="synthpop.html#details"><i class="fa fa-check"></i><b>3.1</b> Details</a></li>
-<li class="chapter" data-level="3.2" data-path="synthpop.html"><a href="synthpop.html#brief-comments-on-the-validity-of-the-data"><i class="fa fa-check"></i><b>3.2</b> Brief comments on the validity of the data</a></li>
+<li class="chapter" data-level="3.1" data-path="synthpop.html"><a href="synthpop.html#get-set-up"><i class="fa fa-check"></i><b>3.1</b> Get set up</a></li>
+<li class="chapter" data-level="3.2" data-path="synthpop.html"><a href="synthpop.html#generate-synthetic-data-with-synthpop"><i class="fa fa-check"></i><b>3.2</b> Generate synthetic data with synthpop</a></li>
+<li class="chapter" data-level="3.3" data-path="synthpop.html"><a href="synthpop.html#brief-comments-on-the-validity-of-the-data"><i class="fa fa-check"></i><b>3.3</b> Brief comments on the validity of the data</a></li>
 </ul></li>
 <li class="chapter" data-level="4" data-path="analysis.html"><a href="analysis.html"><i class="fa fa-check"></i><b>4</b> Analysis with synthetic data</a><ul>
 <li class="chapter" data-level="4.1" data-path="analysis.html"><a href="analysis.html#getting-set-up"><i class="fa fa-check"></i><b>4.1</b> Getting set up</a></li>
@@ -164,7 +165,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="6" data-path="simstudy.html"><a href="simstudy.html"><i class="fa fa-check"></i><b>6</b> Generating data using simstudy methods</a><ul>
 <li class="chapter" data-level="6.1" data-path="simstudy.html"><a href="simstudy.html#overview"><i class="fa fa-check"></i><b>6.1</b> Overview</a></li>
-<li class="chapter" data-level="6.2" data-path="simstudy.html"><a href="simstudy.html#details-1"><i class="fa fa-check"></i><b>6.2</b> Details</a></li>
+<li class="chapter" data-level="6.2" data-path="simstudy.html"><a href="simstudy.html#details"><i class="fa fa-check"></i><b>6.2</b> Details</a></li>
 <li class="chapter" data-level="6.3" data-path="simstudy.html"><a href="simstudy.html#brief-comments-on-the-validity-of-the-data-1"><i class="fa fa-check"></i><b>6.3</b> Brief comments on the validity of the data</a></li>
 <li class="chapter" data-level="6.4" data-path="simstudy.html"><a href="simstudy.html#comparing-synthpop-and-simstudy-approaches"><i class="fa fa-check"></i><b>6.4</b> Comparing <strong>synthpop</strong> and <strong>simstudy</strong> approaches</a></li>
 </ul></li>
@@ -193,9 +194,9 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Chapter 3</span> Generating data using synthpop methods</h1>
 <p>In this chapter we will look at how to generate synthetic data on the server side using DataSHIELD functions, based on <strong>synthpop</strong> functionality. In this scenario the synthetic data is generated on the server side and returned to the client.</p>
 <p>The <code>syn</code> function in the <strong>synthpop</strong> package has many detailed options for optimising the generation of synthetic data. A limited number of these options are available in the <strong>dsSynthetic</strong> package. Details of how to use these options can be found in the vignettes for <strong>synthpop</strong>.</p>
-<div id="details" class="section level2">
-<h2><span class="header-section-number">3.1</span> Details</h2>
-<p>First we need to build a login object for the server that holds the data. Note that the <strong>dsSynthetic</strong> functions have been written to work with a single connection:</p>
+<div id="get-set-up" class="section level2">
+<h2><span class="header-section-number">3.1</span> Get set up</h2>
+<p>First we need to build a login object for the server that holds the data. Note that the <strong>dsSynthetic</strong> functions have been written to work with a connection to a single server:</p>
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="synthpop.html#cb1-1"></a>builder &lt;-<span class="st"> </span>DSI<span class="op">::</span><span class="kw">newDSLoginBuilder</span>()</span>
 <span id="cb1-2"><a href="synthpop.html#cb1-2"></a><span class="co"># hide credentials</span></span>
 <span id="cb1-3"><a href="synthpop.html#cb1-3"></a>builder<span class="op">$</span><span class="kw">append</span>(<span class="dt">server=</span><span class="st">&quot;server1&quot;</span>, <span class="dt">url=</span><span class="st">&quot;https://opal-sandbox.mrc-epid.cam.ac.uk&quot;</span>,</span>
@@ -203,30 +204,20 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb1-5"><a href="synthpop.html#cb1-5"></a>               <span class="dt">table =</span> <span class="st">&quot;DASIM.DASIM1&quot;</span>)</span>
 <span id="cb1-6"><a href="synthpop.html#cb1-6"></a>logindata &lt;-<span class="st"> </span>builder<span class="op">$</span><span class="kw">build</span>()</span></code></pre></div>
 <p>And then we establish a connection to the server:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="synthpop.html#cb2-1"></a><span class="kw">library</span>(DSOpal)</span></code></pre></div>
-<pre><code>## Loading required package: opalr</code></pre>
-<pre><code>## Loading required package: httr</code></pre>
-<pre><code>## Loading required package: DSI</code></pre>
-<pre><code>## Loading required package: progress</code></pre>
-<pre><code>## Loading required package: R6</code></pre>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="synthpop.html#cb8-1"></a><span class="cf">if</span>(<span class="kw">exists</span>(<span class="st">&quot;connections&quot;</span>)){</span>
-<span id="cb8-2"><a href="synthpop.html#cb8-2"></a>  <span class="kw">datashield.logout</span>(<span class="dt">conns =</span> connections)</span>
-<span id="cb8-3"><a href="synthpop.html#cb8-3"></a>}</span>
-<span id="cb8-4"><a href="synthpop.html#cb8-4"></a>connections &lt;-<span class="st"> </span><span class="kw">datashield.login</span>(<span class="dt">logins=</span>logindata, <span class="dt">assign =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
-<pre><code>## 
-## Logging into the collaborating servers</code></pre>
-<pre><code>## 
-##   No variables have been specified. 
-##   All the variables in the table 
-##   (the whole dataset) will be assigned to R!</code></pre>
-<pre><code>## 
-## Assigning table data...</code></pre>
-<p>The first option is to generate a synthetic dataset using an implementation of the <strong>synthpop</strong> package on the server side. <strong>synthpop</strong> requires some thought on the part of the user: if you have a data set with a large number of columns it may take a large amount of time to generate the synthetic data. Assuming we have a data set with a small number of columns (i.e. around 10) we can simply execute the following command:</p>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="synthpop.html#cb12-1"></a><span class="kw">library</span>(dsSyntheticClient)</span>
-<span id="cb12-2"><a href="synthpop.html#cb12-2"></a><span class="kw">library</span>(dsBaseClient)</span>
-<span id="cb12-3"><a href="synthpop.html#cb12-3"></a>synth_data =<span class="st"> </span><span class="kw">ds.syn</span>(<span class="dt">data =</span> <span class="st">&quot;D&quot;</span>, <span class="dt">method =</span> <span class="st">&quot;cart&quot;</span>, <span class="dt">m =</span> <span class="dv">1</span>, <span class="dt">seed =</span> <span class="dv">123</span>)<span class="op">$</span>server1<span class="op">$</span>syn</span></code></pre></div>
+<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="synthpop.html#cb2-1"></a><span class="kw">library</span>(DSOpal)</span>
+<span id="cb2-2"><a href="synthpop.html#cb2-2"></a><span class="cf">if</span>(<span class="kw">exists</span>(<span class="st">&quot;connections&quot;</span>)){</span>
+<span id="cb2-3"><a href="synthpop.html#cb2-3"></a>  <span class="kw">datashield.logout</span>(<span class="dt">conns =</span> connections)</span>
+<span id="cb2-4"><a href="synthpop.html#cb2-4"></a>}</span>
+<span id="cb2-5"><a href="synthpop.html#cb2-5"></a>connections &lt;-<span class="st"> </span><span class="kw">datashield.login</span>(<span class="dt">logins=</span>logindata, <span class="dt">assign =</span> <span class="ot">TRUE</span>)</span></code></pre></div>
+</div>
+<div id="generate-synthetic-data-with-synthpop" class="section level2">
+<h2><span class="header-section-number">3.2</span> Generate synthetic data with synthpop</h2>
+<p>The recommended way to generate a synthetic dataset is by using an implementation of the <strong>synthpop</strong> package on the server side. <strong>synthpop</strong> requires some thought on the part of the user: if you have a data set with a large number of columns it may take a large amount of time to generate the synthetic data. Assuming we have a data set with a small number of columns (i.e. around 10) we can simply execute the following command:</p>
+<div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="synthpop.html#cb3-1"></a><span class="kw">library</span>(dsSyntheticClient)</span>
+<span id="cb3-2"><a href="synthpop.html#cb3-2"></a><span class="kw">library</span>(dsBaseClient)</span>
+<span id="cb3-3"><a href="synthpop.html#cb3-3"></a>synth_data =<span class="st"> </span><span class="kw">ds.syn</span>(<span class="dt">data =</span> <span class="st">&quot;D&quot;</span>, <span class="dt">method =</span> <span class="st">&quot;cart&quot;</span>, <span class="dt">m =</span> <span class="dv">1</span>, <span class="dt">seed =</span> <span class="dv">123</span>)<span class="op">$</span>server1<span class="op">$</span>syn</span></code></pre></div>
 <p>We then have the synthetic data on the client side and can view and manipulate it as required:</p>
-<div class="sourceCode" id="cb13"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb13-1"><a href="synthpop.html#cb13-1"></a><span class="kw">head</span>(synth_data)</span></code></pre></div>
+<div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="synthpop.html#cb4-1"></a><span class="kw">head</span>(synth_data)</span></code></pre></div>
 <pre><code>##      LAB_TSC   LAB_TRIG  LAB_HDL LAB_GLUC_FASTING PM_BMI_CONTINUOUS DIS_CVA
 ## 100 6.589339  3.7035441 1.551391         4.811297          22.87495       0
 ## 101 5.585602 -0.1089366 1.821371         4.495677          31.37084       0
@@ -241,10 +232,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 103        0       0      0                  2
 ## 104        0       0      0                  3
 ## 105        0       0      1                  2</code></pre>
-<p>If you have a dataset with a larger number of columns, you could generate a synthetic dataset for a subset of the variables that you need to generate a particular harmonised variable. For example if we needed to generate a diabetes variable based on blood triglycerides, HDL and glucose we could just generate a dataset for those variables:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="synthpop.html#cb15-1"></a><span class="kw">ds.subset</span>(<span class="dt">x =</span> <span class="st">&quot;D&quot;</span>, <span class="dt">subset =</span> <span class="st">&quot;D2&quot;</span>, <span class="dt">cols =</span> <span class="kw">c</span>(<span class="st">&quot;LAB_HDL&quot;</span>, <span class="st">&quot;LAB_TRIG&quot;</span>, <span class="st">&quot;LAB_GLUC_FASTING&quot;</span>))</span>
-<span id="cb15-2"><a href="synthpop.html#cb15-2"></a>synth_data_sub =<span class="st"> </span><span class="kw">ds.syn</span>(<span class="dt">data =</span> <span class="st">&quot;D2&quot;</span>, <span class="dt">method =</span> <span class="st">&quot;cart&quot;</span>, <span class="dt">m =</span> <span class="dv">1</span>, <span class="dt">seed =</span> <span class="dv">123</span>)<span class="op">$</span>server1<span class="op">$</span>syn</span>
-<span id="cb15-3"><a href="synthpop.html#cb15-3"></a><span class="kw">head</span>(synth_data_sub)</span></code></pre></div>
+<p>If you have a dataset with a larger number of columns, you could generate a synthetic dataset for a subset of the variables that you need to generate a particular part of your code development. For example if we needed to generate a diabetes variable based on blood triglycerides, HDL and glucose we could just generate a dataset for those variables:</p>
+<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="synthpop.html#cb6-1"></a><span class="kw">ds.subset</span>(<span class="dt">x =</span> <span class="st">&quot;D&quot;</span>, <span class="dt">subset =</span> <span class="st">&quot;D2&quot;</span>, <span class="dt">cols =</span> <span class="kw">c</span>(<span class="st">&quot;LAB_HDL&quot;</span>, <span class="st">&quot;LAB_TRIG&quot;</span>, <span class="st">&quot;LAB_GLUC_FASTING&quot;</span>))</span>
+<span id="cb6-2"><a href="synthpop.html#cb6-2"></a>synth_data_sub =<span class="st"> </span><span class="kw">ds.syn</span>(<span class="dt">data =</span> <span class="st">&quot;D2&quot;</span>, <span class="dt">method =</span> <span class="st">&quot;cart&quot;</span>, <span class="dt">m =</span> <span class="dv">1</span>, <span class="dt">seed =</span> <span class="dv">123</span>)<span class="op">$</span>server1<span class="op">$</span>syn</span>
+<span id="cb6-3"><a href="synthpop.html#cb6-3"></a><span class="kw">head</span>(synth_data_sub)</span></code></pre></div>
 <pre><code>##      LAB_HDL   LAB_TRIG LAB_GLUC_FASTING
 ## 100 1.994836 -0.3539021         4.373640
 ## 101 1.232072  3.4056670         3.947395
@@ -253,10 +244,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## 104 1.534505  2.0944415         4.392708
 ## 105 2.031930 -0.2621825         3.567389</code></pre>
 <p>Lastly we save our data for later chapters:</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="synthpop.html#cb17-1"></a><span class="kw">write.csv</span>(<span class="dt">x =</span> synth_data, <span class="dt">file =</span> <span class="st">&quot;data/synth_data.csv&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="synthpop.html#cb8-1"></a><span class="kw">write.csv</span>(<span class="dt">x =</span> synth_data, <span class="dt">file =</span> <span class="st">&quot;data/synth_data.csv&quot;</span>)</span></code></pre></div>
 </div>
 <div id="brief-comments-on-the-validity-of-the-data" class="section level2">
-<h2><span class="header-section-number">3.2</span> Brief comments on the validity of the data</h2>
+<h2><span class="header-section-number">3.3</span> Brief comments on the validity of the data</h2>
 <p>In the example above we chose to synthetically generate the variable <code>PM_BMI_CATEGORICAL</code>. This variable is actually derived from the continuous variable <code>PM_BMI_CONTINUOUS</code>, with (say) BMI &lt;25 being category 1, 25&lt;= BMI &lt; 30 being category 2 etc. Becuase of the probabilistic way in which the data are generated, this categorisation is not enforced in the data synthesis. It might be better to generate the continuous variable only and add the categorical variable afterwards.</p>
 
 </div>
