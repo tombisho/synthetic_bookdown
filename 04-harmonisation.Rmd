@@ -1,8 +1,13 @@
-# Harmonisation with synthetic data
+# Harmonisation with synthetic data {#harmonisation}
 
 In this section we describe how to harmonise synthetic data on the client side. This assumes that you have used one of the previous methods to generate your synthetic data set.
 
 Recall that we are aiming to use synthetic data on the client side to design harmonisation algorithms, and then implement these on Opal on the server side using the real data. This removes the need for the user to have full access to the data. Harmonisation algorithms can be implemented in Opal using MagmaScript (JavaScript with some additional functions) without having full access to the data. The idea is that writing JavaScript on the client side, having full access to the synthetic data, is easier than writing the code on the server side with only access to summaries.
+
+Aditional steps for harmonisation are:
+
+4. With the synthetic data on the client side, the user can view the data and develop their code. They will be able to see the how the data changes as the code is run.
+5. When the code is complete, it can be run on the serve side using the real data.
 
 In detail, the steps proposed are:
 
@@ -11,14 +16,14 @@ In detail, the steps proposed are:
 3. Write and test JavaScript code in the session against the synthetic data
 4. When happy, copy the code into Opal to generate the harmonised data
 
+```{r echo=FALSE, fig.cap="Prototyping DataSHIELD harmonisation using synthetic data on Javascript"}
+knitr::include_graphics(rep("images/dssynthetic_harm.png"))
+
+```
+
 ## Getting set up
 
-First some system level packages may need to be installed: On Debian / Ubuntu install either `libv8-dev` or `libnode-dev`, on Fedora use `v8-devel`. This allows the installation of the R `V8` package.
 
-```{r install V8}
-install.packages("V8")
-library("V8")
-```
 
 ## Do the work
 

@@ -22,3 +22,12 @@ brief-comments-on-the-validity-of-the-data-1
 fig:unnamed-chunk-5
 overview
 details
+comparing-synthpop-and-simstudy-approaches
+fig:unnamed-chunk-6
+structure
+preliminaries
+details-1
+synopsis
+analysis
+harmonisation
+simstudy

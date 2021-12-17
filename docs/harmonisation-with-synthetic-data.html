@@ -24,7 +24,7 @@
 <meta name="author" content="Tom Bishop, Soumya Banerjee" />
 
 
-<meta name="date" content="2021-10-04" />
+<meta name="date" content="2021-12-16" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -153,6 +153,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li class="chapter" data-level="4.1" data-path="generating-data-using-simstudy-methods.html"><a href="generating-data-using-simstudy-methods.html#overview"><i class="fa fa-check"></i><b>4.1</b> Overview</a></li>
 <li class="chapter" data-level="4.2" data-path="generating-data-using-simstudy-methods.html"><a href="generating-data-using-simstudy-methods.html#details"><i class="fa fa-check"></i><b>4.2</b> Details</a></li>
 <li class="chapter" data-level="4.3" data-path="generating-data-using-simstudy-methods.html"><a href="generating-data-using-simstudy-methods.html#brief-comments-on-the-validity-of-the-data-1"><i class="fa fa-check"></i><b>4.3</b> Brief comments on the validity of the data</a></li>
+<li class="chapter" data-level="4.4" data-path="generating-data-using-simstudy-methods.html"><a href="generating-data-using-simstudy-methods.html#comparing-synthpop-and-simstudy-approaches"><i class="fa fa-check"></i><b>4.4</b> Comparing <strong>synthpop</strong> and <strong>simstudy</strong> approaches</a></li>
 </ul></li>
 <li class="chapter" data-level="5" data-path="harmonisation-with-synthetic-data.html"><a href="harmonisation-with-synthetic-data.html"><i class="fa fa-check"></i><b>5</b> Harmonisation with synthetic data</a><ul>
 <li class="chapter" data-level="5.1" data-path="harmonisation-with-synthetic-data.html"><a href="harmonisation-with-synthetic-data.html#getting-set-up"><i class="fa fa-check"></i><b>5.1</b> Getting set up</a></li>
@@ -188,6 +189,11 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Chapter 5</span> Harmonisation with synthetic data</h1>
 <p>In this section we describe how to harmonise synthetic data on the client side. This assumes that you have used one of the previous methods to generate your synthetic data set.</p>
 <p>Recall that we are aiming to use synthetic data on the client side to design harmonisation algorithms, and then implement these on Opal on the server side using the real data. This removes the need for the user to have full access to the data. Harmonisation algorithms can be implemented in Opal using MagmaScript (JavaScript with some additional functions) without having full access to the data. The idea is that writing JavaScript on the client side, having full access to the synthetic data, is easier than writing the code on the server side with only access to summaries.</p>
+<p>Aditional steps for harmonisation are:</p>
+<ol start="4" style="list-style-type: decimal">
+<li>With the synthetic data on the client side, the user can view the data and develop their code. They will be able to see the how the data changes as the code is run.</li>
+<li>When the code is complete, it can be run on the serve side using the real data.</li>
+</ol>
 <p>In detail, the steps proposed are:</p>
 <ol style="list-style-type: decimal">
 <li>Start a JavaScript session on the client side</li>
@@ -195,6 +201,12 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>Write and test JavaScript code in the session against the synthetic data</li>
 <li>When happy, copy the code into Opal to generate the harmonised data</li>
 </ol>
+<div class="figure"><span id="fig:unnamed-chunk-1"></span>
+<img src="images/dssynthetic_harm.png" alt="Prototyping DataSHIELD harmonisation using synthetic data on Javascript" width="480" />
+<p class="caption">
+Figure 5.1: Prototyping DataSHIELD harmonisation using synthetic data on Javascript
+</p>
+</div>
 <div id="getting-set-up" class="section level2">
 <h2><span class="header-section-number">5.1</span> Getting set up</h2>
 <p>First some system level packages may need to be installed: On Debian / Ubuntu install either <code>libv8-dev</code> or <code>libnode-dev</code>, on Fedora use <code>v8-devel</code>. This allows the installation of the R <code>V8</code> package.</p>
@@ -202,7 +214,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <pre><code>## Installing package into &#39;/home/vagrant/R/x86_64-pc-linux-gnu-library/4.0&#39;
 ## (as &#39;lib&#39; is unspecified)</code></pre>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="harmonisation-with-synthetic-data.html#cb3-1"></a><span class="kw">library</span>(<span class="st">&quot;V8&quot;</span>)</span></code></pre></div>
-<pre><code>## Using V8 engine 6.8.275.32-node.12</code></pre>
+<pre><code>## Using V8 engine 9.6.180.12</code></pre>
 </div>
 <div id="do-the-work" class="section level2">
 <h2><span class="header-section-number">5.2</span> Do the work</h2>
@@ -248,10 +260,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <span id="cb11-3"><a href="harmonisation-with-synthetic-data.html#cb11-3"></a>synth_data_harm =<span class="st"> </span>synth_data</span>
 <span id="cb11-4"><a href="harmonisation-with-synthetic-data.html#cb11-4"></a>synth_data_harm<span class="op">$</span>my_var =<span class="st"> </span>my_out</span></code></pre></div>
 <p>If we are happy with the code, we can paste it directly into the Opal <em>script</em> interface so that it can be executed on the real data:</p>
-<div class="figure"><span id="fig:unnamed-chunk-5"></span>
-<img src="images/opal_script.PNG" alt="SCript editor in Opal" width="648" />
+<div class="figure"><span id="fig:unnamed-chunk-6"></span>
+<img src="images/opal_script.PNG" alt="Script editor in Opal" width="648" />
 <p class="caption">
-Figure 5.1: SCript editor in Opal
+Figure 5.2: Script editor in Opal
 </p>
 </div>
 

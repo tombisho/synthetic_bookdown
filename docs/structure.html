@@ -1,0 +1,189 @@
+<!DOCTYPE html>
+<html lang="" xml:lang="">
+<head>
+
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+  <title>Chapter 2 Structure | dsSynthetic: A DataSHIELD package to generate synthetic data</title>
+  <meta name="description" content="The purpose of this book is to help the reader use dsSynthetic to help with data harmonisation and analysis when working on federated data sets with DataSHIELD" />
+  <meta name="generator" content="bookdown 0.22 and GitBook 2.6.7" />
+
+  <meta property="og:title" content="Chapter 2 Structure | dsSynthetic: A DataSHIELD package to generate synthetic data" />
+  <meta property="og:type" content="book" />
+  
+  
+  <meta property="og:description" content="The purpose of this book is to help the reader use dsSynthetic to help with data harmonisation and analysis when working on federated data sets with DataSHIELD" />
+  
+
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:title" content="Chapter 2 Structure | dsSynthetic: A DataSHIELD package to generate synthetic data" />
+  
+  <meta name="twitter:description" content="The purpose of this book is to help the reader use dsSynthetic to help with data harmonisation and analysis when working on federated data sets with DataSHIELD" />
+  
+
+<meta name="author" content="Tom Bishop, Soumya Banerjee" />
+
+
+<meta name="date" content="2021-12-16" />
+
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="apple-mobile-web-app-capable" content="yes" />
+  <meta name="apple-mobile-web-app-status-bar-style" content="black" />
+  
+  
+<link rel="prev" href="index.html"/>
+<link rel="next" href="intro.html"/>
+<script src="libs/jquery-2.2.3/jquery.min.js"></script>
+<link href="libs/gitbook-2.6.7/css/style.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-table.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-bookdown.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-highlight.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-search.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-fontsettings.css" rel="stylesheet" />
+<link href="libs/gitbook-2.6.7/css/plugin-clipboard.css" rel="stylesheet" />
+
+
+
+
+
+
+
+
+
+<script src="libs/accessible-code-block-0.0.1/empty-anchor.js"></script>
+<link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
+<script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+
+
+
+
+<link rel="stylesheet" href="style.css" type="text/css" />
+</head>
+
+<body>
+
+
+
+  <div class="book without-animation with-summary font-size-2 font-family-1" data-basepath=".">
+
+    <div class="book-summary">
+      <nav role="navigation">
+
+<ul class="summary">
+<li><a href="./">dsSynthetic: Synthetic data generation with DataSHIELD</a></li>
+
+<li class="divider"></li>
+<li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> Prerequisites</a></li>
+<li class="chapter" data-level="2" data-path="structure.html"><a href="structure.html"><i class="fa fa-check"></i><b>2</b> Structure</a></li>
+<li class="chapter" data-level="3" data-path="intro.html"><a href="intro.html"><i class="fa fa-check"></i><b>3</b> Introduction</a><ul>
+<li class="chapter" data-level="3.1" data-path="intro.html"><a href="intro.html#assumptions"><i class="fa fa-check"></i><b>3.1</b> Assumptions</a></li>
+<li class="chapter" data-level="3.2" data-path="intro.html"><a href="intro.html#motivation"><i class="fa fa-check"></i><b>3.2</b> Motivation</a></li>
+<li class="chapter" data-level="3.3" data-path="intro.html"><a href="intro.html#hypothesis-for-using-synthetic-data"><i class="fa fa-check"></i><b>3.3</b> Hypothesis for using synthetic data</a></li>
+<li class="chapter" data-level="3.4" data-path="intro.html"><a href="intro.html#overview-of-steps"><i class="fa fa-check"></i><b>3.4</b> Overview of steps</a></li>
+<li class="chapter" data-level="3.5" data-path="intro.html"><a href="intro.html#working-with-single-studies"><i class="fa fa-check"></i><b>3.5</b> Working with single studies</a></li>
+<li class="chapter" data-level="3.6" data-path="intro.html"><a href="intro.html#prerequisites-1"><i class="fa fa-check"></i><b>3.6</b> Prerequisites</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="synthpop.html"><a href="synthpop.html"><i class="fa fa-check"></i><b>4</b> Generating data using synthpop methods</a><ul>
+<li class="chapter" data-level="4.1" data-path="synthpop.html"><a href="synthpop.html#brief-comments-on-the-validity-of-the-data"><i class="fa fa-check"></i><b>4.1</b> Brief comments on the validity of the data</a></li>
+</ul></li>
+<li class="chapter" data-level="5" data-path="analysis-with-synthetic-data.html"><a href="analysis-with-synthetic-data.html"><i class="fa fa-check"></i><b>5</b> Analysis with synthetic data</a><ul>
+<li class="chapter" data-level="5.1" data-path="analysis-with-synthetic-data.html"><a href="analysis-with-synthetic-data.html#getting-set-up"><i class="fa fa-check"></i><b>5.1</b> Getting set up</a></li>
+<li class="chapter" data-level="5.2" data-path="analysis-with-synthetic-data.html"><a href="analysis-with-synthetic-data.html#create-synthetic-dataset"><i class="fa fa-check"></i><b>5.2</b> Create synthetic dataset</a></li>
+<li class="chapter" data-level="5.3" data-path="analysis-with-synthetic-data.html"><a href="analysis-with-synthetic-data.html#start-dslite-local-instance"><i class="fa fa-check"></i><b>5.3</b> Start DSLite local instance</a></li>
+</ul></li>
+<li class="chapter" data-level="6" data-path="harmonisation-with-synthetic-data.html"><a href="harmonisation-with-synthetic-data.html"><i class="fa fa-check"></i><b>6</b> Harmonisation with synthetic data</a><ul>
+<li class="chapter" data-level="6.1" data-path="harmonisation-with-synthetic-data.html"><a href="harmonisation-with-synthetic-data.html#getting-set-up-1"><i class="fa fa-check"></i><b>6.1</b> Getting set up</a></li>
+<li class="chapter" data-level="6.2" data-path="harmonisation-with-synthetic-data.html"><a href="harmonisation-with-synthetic-data.html#do-the-work"><i class="fa fa-check"></i><b>6.2</b> Do the work</a></li>
+</ul></li>
+<li class="chapter" data-level="7" data-path="generating-data-using-simstudy-methods.html"><a href="generating-data-using-simstudy-methods.html"><i class="fa fa-check"></i><b>7</b> Generating data using simstudy methods</a><ul>
+<li class="chapter" data-level="7.1" data-path="generating-data-using-simstudy-methods.html"><a href="generating-data-using-simstudy-methods.html#overview"><i class="fa fa-check"></i><b>7.1</b> Overview</a></li>
+<li class="chapter" data-level="7.2" data-path="generating-data-using-simstudy-methods.html"><a href="generating-data-using-simstudy-methods.html#details"><i class="fa fa-check"></i><b>7.2</b> Details</a></li>
+<li class="chapter" data-level="7.3" data-path="generating-data-using-simstudy-methods.html"><a href="generating-data-using-simstudy-methods.html#brief-comments-on-the-validity-of-the-data-1"><i class="fa fa-check"></i><b>7.3</b> Brief comments on the validity of the data</a></li>
+<li class="chapter" data-level="7.4" data-path="generating-data-using-simstudy-methods.html"><a href="generating-data-using-simstudy-methods.html#comparing-synthpop-and-simstudy-approaches"><i class="fa fa-check"></i><b>7.4</b> Comparing <strong>synthpop</strong> and <strong>simstudy</strong> approaches</a></li>
+</ul></li>
+<li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
+<li class="divider"></li>
+<li><a href="https://github.com/rstudio/bookdown" target="blank">Published with bookdown</a></li>
+
+</ul>
+
+      </nav>
+    </div>
+
+    <div class="book-body">
+      <div class="body-inner">
+        <div class="book-header" role="navigation">
+          <h1>
+            <i class="fa fa-circle-o-notch fa-spin"></i><a href="./">dsSynthetic: A DataSHIELD package to generate synthetic data</a>
+          </h1>
+        </div>
+
+        <div class="page-wrapper" tabindex="-1" role="main">
+          <div class="page-inner">
+
+            <section class="normal" id="section-">
+<div id="structure" class="section level1">
+<h1><span class="header-section-number">Chapter 2</span> Structure</h1>
+<p>In the first chapter we introduce the reasons for wanting to generate synthetic data via DataSHIELD and how it can be used. The second chapter explains how to generate a synthetic data set that can be used on the client side. This is followed by an analysis pipeline use case which details the steps taken. Similarly, an example of how synthetic data can help harmonisation of datais described. The final chapter shows an alternative method for generating synthetic data via DataSHIELD.</p>
+
+</div>
+            </section>
+
+          </div>
+        </div>
+      </div>
+<a href="index.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="intro.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+    </div>
+  </div>
+<script src="libs/gitbook-2.6.7/js/app.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/lunr.js"></script>
+<script src="libs/gitbook-2.6.7/js/clipboard.min.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-search.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-sharing.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-fontsettings.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-bookdown.js"></script>
+<script src="libs/gitbook-2.6.7/js/jquery.highlight.js"></script>
+<script src="libs/gitbook-2.6.7/js/plugin-clipboard.js"></script>
+<script>
+gitbook.require(["gitbook"], function(gitbook) {
+gitbook.start({
+"sharing": {
+"github": false,
+"facebook": true,
+"twitter": true,
+"linkedin": false,
+"weibo": false,
+"instapaper": false,
+"vk": false,
+"whatsapp": false,
+"all": ["facebook", "twitter", "linkedin", "weibo", "instapaper"]
+},
+"fontsettings": {
+"theme": "white",
+"family": "sans",
+"size": 2
+},
+"edit": {
+"link": null,
+"text": null
+},
+"history": {
+"link": null,
+"text": null
+},
+"view": {
+"link": null,
+"text": null
+},
+"download": ["synthetic_bookdown.pdf", "synthetic_bookdown.epub"],
+"toc": {
+"collapse": "subsection"
+}
+});
+});
+</script>
+
+</body>
+
+</html>

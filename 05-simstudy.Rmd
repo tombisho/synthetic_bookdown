@@ -1,4 +1,4 @@
-# Generating data using simstudy methods
+# Generating data using simstudy methods {#simstudy}
 
 In this chapter we will look at how to generate synthetic data on the client side using DataSHIELD functions to extract summary characteristics of the data set from the server side.
 
@@ -20,7 +20,7 @@ Again we need to build a login object for the server that holds the data. Note t
 builder <- DSI::newDSLoginBuilder()
 # hide credentials
 builder$append(server="server1", url="https://opal-sandbox.mrc-epid.cam.ac.uk",
-               user="dsuser", password="password", 
+               user="dsuser", password="P@ssw0rd", 
                table = "DASIM.DASIM1")
 logindata <- builder$build()
 ```
