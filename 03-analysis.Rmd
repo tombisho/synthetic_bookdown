@@ -1,31 +1,35 @@
-# Analysis with synthetic data
+# Analysis with synthetic data {#analysis}
 
 In this section we describe how we can use a copy of the synthetic data to help users write DataSHIELD analysis code. Again we will make use of an existing dataset (** TO DO would be better to run this on some harmonised data)
 
 Recall that the objective here is to use a synthetic copy of already harmonised real data that is then made available to the analyst on the client side. This synthetic data set can be loaded into **DSLite**, a special client side implementation of server side DataSHIELD used for development purposes: the user can have full access to the data. This is acceptable in this situation as the data are synthetic. Therefore the user has the chance to write DataSHIELD code but see the complete results of each step. This makes it easier to develop the code.
 
-## Getting set up
-We require `DSLite` and `dsBase` to be installed:
-```{r install DSLite}
-install.packages("DSLite", dependencies = TRUE)
-install.packages("dsBase", repos = c("https://cloud.r-project.org", "https://cran.obiba.org"), dependencies = TRUE)
+The steps are summarised as:
+
+1. With the synthetic data on the client side, the user then starts a `DSLite` instance and places the synthetic data into it. `DSLite` simulates the DataSHIELD server side environment on the client side, with full access to the data.
+2. The user can then write their analysis using DataSHIELD commands against the DSLite instance. DSLite then allows the user to return any object on the server side. Therefore users can see the results of each step of their script for each row of data. This helps with debugging.
+3. When the analysis script works as required, the user can run it against the real data on the server side.
+
+```{r echo=FALSE, fig.cap="Prototyping DataSHIELD analysis using synthetic data on DSLite"}
+knitr::include_graphics(rep("images/dssynthetic_analysis.png"))
+
 ```
 
-Let us assume that the *DASIM1* dataset has previously been harmonised and is held on a server. We do not have access to the full dataset but want to do some analysis on it. Using the method described above, the first thing to do is generate a synthetic version that we can fully access. To do this we will use the same steps that were shown in \@ref(synthpop)
+## Getting set up
 
-## Create synthetic dataset
+Let us assume that the *DASIM1* dataset has previously been harmonised and is held on a server. We do not have access to the full dataset but want to do some analysis on it. Using the method described above, the first thing to do is generate a synthetic version that we can fully access. To do this we will use the same steps that were shown in \@ref(synthpop)
 
 We build our log in object
 
 ```{r}
 builder <- DSI::newDSLoginBuilder()
 builder$append(server="server1", url="https://opal-sandbox.mrc-epid.cam.ac.uk",
-               user="dsuser", password="password", 
+               user="dsuser", password="P@ssw0rd", 
                table = "DASIM.DASIM1")
 logindata <- builder$build()
 ```
-Then perform the log in to ther server:
-```{r}
+Then perform the log in to the server:
+```{r, message=FALSE}
 library(DSOpal)
 if(exists("connections")){
   datashield.logout(conns = connections)
@@ -33,18 +37,19 @@ if(exists("connections")){
 connections <- datashield.login(logins=logindata, assign = TRUE)
 ```
 
+## Create synthetic dataset
 The *DASIM1* dataset is relatively small (i.e. around 10 columns). This is probably also true of many harmonised data sets.
-Therefore we can just create a synthetic version of it:
+Therefore we can just create a synthetic version of it in its entirety:
 
-```{r}
+```{r, message=FALSE}
 library(dsSyntheticClient)
 synth_data = ds.syn(data = "D", method = "cart", m = 1, seed = 123)
 DASIM = synth_data$server1$syn
 ```
 
 ## Start DSLite local instance
-
-```{r}
+Here we start our `DSLite` instance, and load the *DASIM* data. Recall that this simulates the server side environment on your client, but with the ability to access all the data. Therefore it is ideal for our requirement to build a code pipeline while being able to see the data: this helps with the debugging and logic checking process.
+```{r, message=FALSE}
 library(DSLite)
 library(dsBaseClient)
 dslite.server <- newDSLiteServer(tables=list(DASIM=DASIM))
@@ -62,12 +67,12 @@ connections <- datashield.login(logins=logindata, assign = TRUE)
 
 We can now check for ourselves that our *DASIM* data is in the DSLite server:
 
-```{r}
+```{r, message=FALSE}
 ds.summary('D')
 ```
-
+## Write some analysis code
 Now suppose we want to subset the *DASIM* data into men and women. We can use the `ds.subset` function:
-```{r warning=FALSE}
+```{r warning=FALSE, message=FALSE}
 ds.subset(x="D", subset = "women", logicalOperator = "==", threshold = 1)
 ```
 With DSLite we have the chance to look at actually what happened in detail:
@@ -84,14 +89,14 @@ head(women)
 ```
 This now looks much better.
 
+## Run corrected code on real data
+
 We can also compare results obtained via DataSHIELD with results on the actual data:
 
-```{r message=FALSE}
+```{r message=FALSE, warning=FALSE}
 from_server = ds.glm(formula = "DIS_DIAB~PM_BMI_CONTINUOUS+LAB_TSC+LAB_HDL", data = "women", family = "binomial")
 from_local = glm(formula = "DIS_DIAB~PM_BMI_CONTINUOUS+LAB_TSC+LAB_HDL", data = women, family = "binomial")
 
 from_server$coefficients
 from_local$coefficients
 ```
-
-**TO DO make a more realistic example for example with ds.lexis or ds.reshape where it is much harder to know what is going on**

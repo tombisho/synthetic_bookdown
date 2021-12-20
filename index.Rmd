@@ -9,9 +9,12 @@ biblio-style: apalike
 link-citations: yes
 description: "The purpose of this book is to help the reader use dsSynthetic to help with data harmonisation and analysis when working on federated data sets with DataSHIELD"
 ---
+# Preliminaries
 
-# Prerequisites
+## Synopsis
 
-This is a book written to provide a tutorial for the **dsSynthetic** DataSHIELD R package
+This is a book written to provide a tutorial for the **dsSynthetic** DataSHIELD R package. **dsSynthetic** helps in federated analysis situations where you can’t have full access to the data (for example using DataSHIELD) and it is hard to write, debug and check the logic of your code. It gives you a realistic, non-disclosive copy of the real data against which you can perfect your code. When things are working correctly you can then execute your code against the real data held on a remote server. 
 
-To use it you will need a working version of R with the DataSHIELD client packages installed. See \@ref(intro) for more details.
+## Structure
+
+In the first chapter we introduce the reasons for wanting to generate synthetic data via DataSHIELD and how it can be used. The second chapter explains how to generate a synthetic data set that can be used on the client side. This is followed by an analysis pipeline use case which details the steps taken. Similarly, an example of how synthetic data can help harmonisation of data is described. The final chapter shows an alternative method for generating synthetic data via DataSHIELD.
