@@ -9,6 +9,15 @@ Documentation and bookdown for dsSynthetic package to generate synthetic data in
 https://tombisho.github.io/synthetic_bookdown/
 
 
+dsSynthetic has a server-side component
+
+https://github.com/tombisho/dsSynthetic
+
+and a client side package
+
+https://github.com/tombisho/dsSyntheticClient
+
+
 ## Bookdown
 
 The complete bookdown, tutorial, vignette with executable code and synthetic data is available here:
