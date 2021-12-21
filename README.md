@@ -1,13 +1,79 @@
 ## Introduction
 
-Documentation and bookdown for dsSynthetic package to generate synthetic data.
+
+[![License](https://img.shields.io/badge/license-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.html)
+
+
+Documentation and bookdown for dsSynthetic package to generate synthetic data in DataSHIELD.
 
 https://tombisho.github.io/synthetic_bookdown/
 
 
-This is a minimal example of a book based on R Markdown and **bookdown** (https://github.com/rstudio/bookdown). Please see the page "Get Started" at https://bookdown.org/home/about/ for how to compile this example.
+## Bookdown
 
-Recipe by Tom Bishop
+The complete bookdown, tutorial, vignette with executable code and synthetic data is available here:
+
+https://tombisho.github.io/synthetic_bookdown/
+
+
+
+## Quick start
+
+Please install R and R Studio 
+
+   https://www.rstudio.com/products/rstudio/download/preview/
+
+
+Install the following packages:
+
+
+```r
+
+install.packages('devtools')
+library(devtools)
+devtools::install_github('tombisho/dsSyntheticClient')
+devtools::install_github('datashield/dsBaseClient@6.1.1')
+install.packages('rmarkdown')
+install.packages('knitr')
+install.packages('tinytex')
+install.packages('metafor')
+install.packages('DSOpal')
+install.packages('DSI')
+install.packages('opalr')
+
+```
+
+
+## Usage
+
+See the bookdown below for a complete tutorial:
+
+
+https://tombisho.github.io/synthetic_bookdown/
+
+
+
+A minimal example of a book based on R Markdown and **bookdown** (https://github.com/rstudio/bookdown). 
+
+The bookdown can be compiled by typing the following commands:
+
+  ```r 
+  
+  library(bookdown)
+
+  bookdown::serve_book()
+  
+  ```
+
+
+## Contact
+
+Soumya Banerjee and Tom R.P. Bishop
+
+sb2333@cam.ac.uk
+
+
+## Recipe by Tom Bishop
 
 Bookdown recipe:
 
