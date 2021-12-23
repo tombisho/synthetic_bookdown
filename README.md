@@ -77,12 +77,12 @@ The bookdown can be compiled by typing the following commands:
 
 ## Contact
 
-Soumya Banerjee and Tom R.P. Bishop
+Tom R.P. Bishop and Soumya Banerjee
 
 sb2333@cam.ac.uk
 
 
-## Recipe by Tom Bishop
+## Recipe for creating your own bookdown
 
 Bookdown recipe:
 
