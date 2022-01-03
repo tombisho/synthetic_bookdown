@@ -4,12 +4,12 @@
 [![License](https://img.shields.io/badge/license-GPLv3-blue.svg)](https://www.gnu.org/licenses/gpl-3.0.html)
 
 
-Documentation and bookdown for dsSynthetic package to generate synthetic data in DataSHIELD.
+Documentation and bookdown for `dsSynthetic` package to generate synthetic data in DataSHIELD.
 
 https://tombisho.github.io/synthetic_bookdown/
 
 
-dsSynthetic has a server-side component
+dsSynthetic has a server-side package
 
 https://github.com/tombisho/dsSynthetic
 
@@ -51,6 +51,12 @@ install.packages('DSI')
 install.packages('opalr')
 
 ```
+
+Follow the bookdown below for a complete tutorial:
+
+
+https://tombisho.github.io/synthetic_bookdown/
+
 
 
 ## Usage
