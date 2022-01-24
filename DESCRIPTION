@@ -1,0 +1,12 @@
+Package: synthetic_bookdown
+Type: Book
+Title: synthetic_bookdown
+Version: 1.0
+Imports: bookdown,
+          dsBaseClient,
+          rmarkdown,
+          knitr,
+          tinytex,
+          DSOpal,
+          DSI,
+          opalr
