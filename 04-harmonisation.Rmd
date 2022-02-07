@@ -4,17 +4,13 @@ In this section we describe how to harmonise synthetic data on the client side. 
 
 Recall that we are aiming to use synthetic data on the client side to design harmonisation algorithms, and then implement these on Opal on the server side using the real data. This removes the need for the user to have full access to the data. Harmonisation algorithms can be implemented in Opal using MagmaScript (JavaScript with some additional functions) without having full access to the data. The idea is that writing JavaScript on the client side, having full access to the synthetic data, is easier than writing the code on the server side with only access to summaries.
 
-Additional steps for harmonisation after generation of synthetic data are:
+The steps for harmonisation following generation of synthetic data are:
 
-1. With the synthetic data on the client side, the user can view the data and develop their code. They will be able to see the how the data changes as the code is run.
-2. When the code is complete, it can be run on the serve side using the real data.
+1.	User requests synthetic copy of real data
+2.	Synthetic data generated & available on client side
+3.	Synthetic data loaded into JavaScript (JS). User writes harmonisation code (MagmaScript) on client side.
+4.	When complete, MagmaScript code implemented on server side to run on real data to generate new, harmonised data set
 
-In detail, the steps proposed are:
-
-1. Start a JavaScript session on the client side
-2. Load the synthetic data into the session
-3. Write and test JavaScript code in the session against the synthetic data
-4. When happy, copy the code into Opal to generate the harmonised data
 
 ```{r echo=FALSE, fig.cap="Prototyping DataSHIELD harmonisation using synthetic data on Javascript"}
 knitr::include_graphics(rep("images/dssynthetic_harm.png"))
@@ -67,9 +63,10 @@ if ($('y3age').value() > 25 ){
 `
 
 var my_out = [];
+var out = NULL;
 
 for (j = 0; j < synth_data.length; j++){
-  my_out.push(MagmaScript.evaluator(myScript, als_syn[j]))
+  my_out.push(MagmaScript.evaluator(myScript, synth_data[j]))
 }
 exit
 ```

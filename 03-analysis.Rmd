@@ -1,14 +1,18 @@
 # Analysis with synthetic data {#analysis}
 
-In this section we describe how we can use a copy of the synthetic data to help users write DataSHIELD analysis code. Again we will make use of an existing dataset (** TO DO would be better to run this on some harmonised data)
+In this section we describe how we can use a copy of the synthetic data to help users write DataSHIELD analysis code. Again we will make use of an existing data set.
 
-Recall that the objective here is to use a synthetic copy of already harmonised real data that is then made available to the analyst on the client side. This synthetic data set can be loaded into **DSLite**, a special client side implementation of server side DataSHIELD used for development purposes: the user can have full access to the data. This is acceptable in this situation as the data are synthetic. Therefore the user has the chance to write DataSHIELD code but see the complete results of each step. This makes it easier to develop the code.
+Recall that the objective here is to use a synthetic copy of already harmonised real data that is then made available to the analyst on the client side. This synthetic data set can be loaded into **DSLite**, a special client side implementation of server side DataSHIELD used for development purposes. **DSLite** is will only take standard DataSHIELD functions as input, but the user can have full access to the data through a special interface. This is acceptable in this situation as the data are synthetic and designed to be non-disclosive. Therefore the user has the chance to write DataSHIELD code but see the complete results of each step. This makes it easier to develop the code.
 
 The steps are summarised as:
 
-1. With the synthetic data on the client side, the user then starts a `DSLite` instance and places the synthetic data into it. `DSLite` simulates the DataSHIELD server side environment on the client side, with full access to the data.
-2. The user can then write their analysis using DataSHIELD commands against the DSLite instance. DSLite then allows the user to return any object on the server side. Therefore users can see the results of each step of their script for each row of data. This helps with debugging.
-3. When the analysis script works as required, the user can run it against the real data on the server side.
+1.	User requests synthetic copy of real data
+2.	Synthetic data generated & available on client side
+3.	Synthetic data placed in DSLite environment that simulates server side DataSHIELD environment
+4.	Develop DataSHIELD code against synthetic data in DSLite (with full access to synthetic data)
+5.	When DataSHIELD code is complete, run code against real data on server side
+
+
 
 ```{r echo=FALSE, fig.cap="Prototyping DataSHIELD analysis using synthetic data on DSLite"}
 knitr::include_graphics(rep("images/dssynthetic_analysis.png"))
@@ -17,7 +21,7 @@ knitr::include_graphics(rep("images/dssynthetic_analysis.png"))
 
 ## Getting set up
 
-Let us assume that the *DASIM1* dataset has previously been harmonised and is held on a server. We do not have access to the full dataset but want to do some analysis on it. Using the method described above, the first thing to do is generate a synthetic version that we can fully access. To do this we will use the same steps that were shown in \@ref(synthpop)
+Let us assume that the *DASIM1* dataset has previously been harmonised and is held on a server. As normal with DataSHIELD, we do not have complete access to the full data set but want to do some analysis on it. Using the method described above, the first thing to do is generate a synthetic version of the data that we can fully access. To do this we will use the same steps that were shown in \@ref(synthpop)
 
 We build our log in object
 
@@ -39,11 +43,12 @@ connections <- datashield.login(logins=logindata, assign = TRUE)
 
 ## Create synthetic dataset
 The *DASIM1* dataset is relatively small (i.e. around 10 columns). This is probably also true of many harmonised data sets.
-Therefore we can just create a synthetic version of it in its entirety:
+Therefore we can just create a synthetic version of it in its entirety without specifying a subset of columns:
 
 ```{r, message=FALSE}
 library(dsSyntheticClient)
 synth_data = ds.syn(data = "D", method = "cart", m = 1, seed = 123)
+# N.B. you may need to replace `server1` if you have named you connection differently
 DASIM = synth_data$server1$syn
 ```
 
@@ -77,6 +82,7 @@ ds.subset(x="D", subset = "women", logicalOperator = "==", threshold = 1)
 ```
 With DSLite we have the chance to look at actually what happened in detail:
 ```{r}
+# N.B. you may need to replace `server1` if you have named you connection differently
 women = getDSLiteData(conns = connections, symbol = "women")$server1
 head(women)
 ```
@@ -84,6 +90,7 @@ This doesn't look quite right. There are still rows with `GENDER == 0`. There is
 ```{r warning=FALSE}
 ds.subset(x="D", subset = "women", logicalOperator = "GENDER==", threshold = 1)
 # get the data again
+# N.B. you may need to replace `server1` if you have named you connection differently
 women = getDSLiteData(conns = connections, symbol = "women")$server1
 head(women)
 ```
