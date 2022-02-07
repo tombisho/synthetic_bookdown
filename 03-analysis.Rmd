@@ -48,7 +48,7 @@ Therefore we can just create a synthetic version of it in its entirety without s
 ```{r, message=FALSE}
 library(dsSyntheticClient)
 synth_data = ds.syn(data = "D", method = "cart", m = 1, seed = 123)
-# N.B. you may need to replace `server1` if you have named you connection differently
+# N.B. you may need to replace `server1` if you have named your connection differently
 DASIM = synth_data$server1$syn
 ```
 
@@ -82,7 +82,7 @@ ds.subset(x="D", subset = "women", logicalOperator = "==", threshold = 1)
 ```
 With DSLite we have the chance to look at actually what happened in detail:
 ```{r}
-# N.B. you may need to replace `server1` if you have named you connection differently
+# N.B. you may need to replace `server1` if you have named your connection differently
 women = getDSLiteData(conns = connections, symbol = "women")$server1
 head(women)
 ```
@@ -90,7 +90,7 @@ This doesn't look quite right. There are still rows with `GENDER == 0`. There is
 ```{r warning=FALSE}
 ds.subset(x="D", subset = "women", logicalOperator = "GENDER==", threshold = 1)
 # get the data again
-# N.B. you may need to replace `server1` if you have named you connection differently
+# N.B. you may need to replace `server1` if you have named your connection differently
 women = getDSLiteData(conns = connections, symbol = "women")$server1
 head(women)
 ```
