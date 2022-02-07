@@ -23,7 +23,8 @@ First we start a JavaScript session and load the additional MagmaScript function
 ```{r start V8}
 library(V8)
 ct2 = v8()
-ct2$source("https://raw.githubusercontent.com/tombisho/dsSyntheticClient/main/MagmaScript.min.js")
+ct2$source(system.file("MagmaScript.min.js", package = "dsSyntheticClient"))
+
 synth_data = read.csv(file = "data/synth_data.csv")
 ct2$assign("synth_data", synth_data)
 ```

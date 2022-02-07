@@ -218,7 +218,7 @@ Figure 5.1: Prototyping DataSHIELD harmonisation using synthetic data on Javascr
 <div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="harmonisation.html#cb1-1"></a><span class="kw">library</span>(V8)</span></code></pre></div>
 <pre><code>## Using V8 engine 9.6.180.12</code></pre>
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="harmonisation.html#cb3-1"></a>ct2 =<span class="st"> </span><span class="kw">v8</span>()</span>
-<span id="cb3-2"><a href="harmonisation.html#cb3-2"></a>ct2<span class="op">$</span><span class="kw">source</span>(<span class="st">&quot;https://raw.githubusercontent.com/tombisho/dsSyntheticClient/main/MagmaScript.min.js&quot;</span>)</span></code></pre></div>
+<span id="cb3-2"><a href="harmonisation.html#cb3-2"></a>ct2<span class="op">$</span><span class="kw">source</span>(<span class="kw">system.file</span>(<span class="st">&quot;MagmaScript.min.js&quot;</span>, <span class="dt">package =</span> <span class="st">&quot;dsSyntheticClient&quot;</span>))</span></code></pre></div>
 <pre><code>## [1] &quot;true&quot;</code></pre>
 <div class="sourceCode" id="cb5"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb5-1"><a href="harmonisation.html#cb5-1"></a>synth_data =<span class="st"> </span><span class="kw">read.csv</span>(<span class="dt">file =</span> <span class="st">&quot;data/synth_data.csv&quot;</span>)</span>
 <span id="cb5-2"><a href="harmonisation.html#cb5-2"></a>ct2<span class="op">$</span><span class="kw">assign</span>(<span class="st">&quot;synth_data&quot;</span>, synth_data)</span></code></pre></div>
