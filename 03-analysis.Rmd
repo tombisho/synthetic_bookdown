@@ -100,7 +100,7 @@ This now looks much better.
 
 We can also compare results obtained via DataSHIELD with results on the actual data:
 
-```{r message=FALSE, warning=FALSE}
+```{r, message=FALSE, warning=FALSE}
 from_server = ds.glm(formula = "DIS_DIAB~PM_BMI_CONTINUOUS+LAB_TSC+LAB_HDL", data = "women", family = "binomial")
 from_local = glm(formula = "DIS_DIAB~PM_BMI_CONTINUOUS+LAB_TSC+LAB_HDL", data = women, family = "binomial")
 

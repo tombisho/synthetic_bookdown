@@ -61,7 +61,7 @@ install.packages("dsBaseClient", repos = c("https://cloud.r-project.org", "https
 
 To use **dsSynthetic** on the client side, the client package needs to be installed:
 
-```{r requiredRPackages, message=FALSE}
+```{r requiredRPackages, message=FALSE, results='hide'}
 devtools::install_github("tombisho/dsSyntheticClient", dependencies = TRUE)
 install.packages("simstudy")
 ```

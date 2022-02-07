@@ -24,7 +24,7 @@
 <meta name="author" content="Tom Bishop, Soumya Banerjee" />
 
 
-<meta name="date" content="2021-12-17" />
+<meta name="date" content="2022-02-07" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -169,9 +169,10 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 </ul></li>
 <li class="chapter" data-level="6" data-path="simstudy.html"><a href="simstudy.html"><i class="fa fa-check"></i><b>6</b> Generating data using simstudy methods</a><ul>
 <li class="chapter" data-level="6.1" data-path="simstudy.html"><a href="simstudy.html#overview"><i class="fa fa-check"></i><b>6.1</b> Overview</a></li>
-<li class="chapter" data-level="6.2" data-path="simstudy.html"><a href="simstudy.html#details"><i class="fa fa-check"></i><b>6.2</b> Details</a></li>
-<li class="chapter" data-level="6.3" data-path="simstudy.html"><a href="simstudy.html#brief-comments-on-the-validity-of-the-data-1"><i class="fa fa-check"></i><b>6.3</b> Brief comments on the validity of the data</a></li>
-<li class="chapter" data-level="6.4" data-path="simstudy.html"><a href="simstudy.html#comparing-synthpop-and-simstudy-approaches"><i class="fa fa-check"></i><b>6.4</b> Comparing <strong>synthpop</strong> and <strong>simstudy</strong> approaches</a></li>
+<li class="chapter" data-level="6.2" data-path="simstudy.html"><a href="simstudy.html#getting-set-up-3"><i class="fa fa-check"></i><b>6.2</b> Getting set up</a></li>
+<li class="chapter" data-level="6.3" data-path="simstudy.html"><a href="simstudy.html#preparing-to-generate-synthetic-data"><i class="fa fa-check"></i><b>6.3</b> Preparing to generate synthetic data</a></li>
+<li class="chapter" data-level="6.4" data-path="simstudy.html"><a href="simstudy.html#generating-synthetic-data"><i class="fa fa-check"></i><b>6.4</b> Generating synthetic data</a></li>
+<li class="chapter" data-level="6.5" data-path="simstudy.html"><a href="simstudy.html#brief-comments-on-the-validity-of-the-data-1"><i class="fa fa-check"></i><b>6.5</b> Brief comments on the validity of the data</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="references.html"><a href="references.html"><i class="fa fa-check"></i>References</a></li>
 <li class="divider"></li>
@@ -198,20 +199,15 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <h1><span class="header-section-number">Chapter 5</span> Harmonisation with synthetic data</h1>
 <p>In this section we describe how to harmonise synthetic data on the client side. This assumes that you have used one of the previous methods to generate your synthetic data set.</p>
 <p>Recall that we are aiming to use synthetic data on the client side to design harmonisation algorithms, and then implement these on Opal on the server side using the real data. This removes the need for the user to have full access to the data. Harmonisation algorithms can be implemented in Opal using MagmaScript (JavaScript with some additional functions) without having full access to the data. The idea is that writing JavaScript on the client side, having full access to the synthetic data, is easier than writing the code on the server side with only access to summaries.</p>
-<p>Additional steps for harmonisation after generation of synthetic data are:</p>
+<p>The steps for harmonisation following generation of synthetic data are:</p>
 <ol style="list-style-type: decimal">
-<li>With the synthetic data on the client side, the user can view the data and develop their code. They will be able to see the how the data changes as the code is run.</li>
-<li>When the code is complete, it can be run on the serve side using the real data.</li>
-</ol>
-<p>In detail, the steps proposed are:</p>
-<ol style="list-style-type: decimal">
-<li>Start a JavaScript session on the client side</li>
-<li>Load the synthetic data into the session</li>
-<li>Write and test JavaScript code in the session against the synthetic data</li>
-<li>When happy, copy the code into Opal to generate the harmonised data</li>
+<li>User requests synthetic copy of real data</li>
+<li>Synthetic data generated &amp; available on client side</li>
+<li>Synthetic data loaded into JavaScript (JS). User writes harmonisation code (MagmaScript) on client side.</li>
+<li>When complete, MagmaScript code implemented on server side to run on real data to generate new, harmonised data set</li>
 </ol>
 <div class="figure"><span id="fig:unnamed-chunk-1"></span>
-<img src="images/dssynthetic_harm.png" alt="Prototyping DataSHIELD harmonisation using synthetic data on Javascript" width="480" />
+<img src="images/dssynthetic_harm.png" alt="Prototyping DataSHIELD harmonisation using synthetic data on Javascript" width="301" />
 <p class="caption">
 Figure 5.1: Prototyping DataSHIELD harmonisation using synthetic data on Javascript
 </p>
@@ -258,11 +254,12 @@ Figure 5.1: Prototyping DataSHIELD harmonisation using synthetic data on Javascr
 <span id="cb8-8"><a href="harmonisation.html#cb8-8"></a><span class="vs">`</span></span>
 <span id="cb8-9"><a href="harmonisation.html#cb8-9"></a></span>
 <span id="cb8-10"><a href="harmonisation.html#cb8-10"></a><span class="kw">var</span> my_out <span class="op">=</span> []<span class="op">;</span></span>
-<span id="cb8-11"><a href="harmonisation.html#cb8-11"></a></span>
-<span id="cb8-12"><a href="harmonisation.html#cb8-12"></a><span class="cf">for</span> (j <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> j <span class="op">&lt;</span> <span class="va">synth_data</span>.<span class="at">length</span><span class="op">;</span> j<span class="op">++</span>)<span class="op">{</span></span>
-<span id="cb8-13"><a href="harmonisation.html#cb8-13"></a>  <span class="va">my_out</span>.<span class="at">push</span>(<span class="va">MagmaScript</span>.<span class="at">evaluator</span>(myScript<span class="op">,</span> als_syn[j]))</span>
-<span id="cb8-14"><a href="harmonisation.html#cb8-14"></a><span class="op">}</span></span>
-<span id="cb8-15"><a href="harmonisation.html#cb8-15"></a>exit</span></code></pre></div>
+<span id="cb8-11"><a href="harmonisation.html#cb8-11"></a><span class="kw">var</span> out <span class="op">=</span> NULL<span class="op">;</span></span>
+<span id="cb8-12"><a href="harmonisation.html#cb8-12"></a></span>
+<span id="cb8-13"><a href="harmonisation.html#cb8-13"></a><span class="cf">for</span> (j <span class="op">=</span> <span class="dv">0</span><span class="op">;</span> j <span class="op">&lt;</span> <span class="va">synth_data</span>.<span class="at">length</span><span class="op">;</span> j<span class="op">++</span>)<span class="op">{</span></span>
+<span id="cb8-14"><a href="harmonisation.html#cb8-14"></a>  <span class="va">my_out</span>.<span class="at">push</span>(<span class="va">MagmaScript</span>.<span class="at">evaluator</span>(myScript<span class="op">,</span> synth_data[j]))</span>
+<span id="cb8-15"><a href="harmonisation.html#cb8-15"></a><span class="op">}</span></span>
+<span id="cb8-16"><a href="harmonisation.html#cb8-16"></a>exit</span></code></pre></div>
 <p>And pull the results into R for inspection:</p>
 <div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="harmonisation.html#cb9-1"></a>my_out =<span class="st"> </span>ct2<span class="op">$</span><span class="kw">get</span>(<span class="st">&quot;my_out&quot;</span>)</span>
 <span id="cb9-2"><a href="harmonisation.html#cb9-2"></a></span>
