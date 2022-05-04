@@ -49,7 +49,7 @@ Therefore we can just create a synthetic version of it in its entirety without s
 library(dsSyntheticClient)
 synth_data = ds.syn(data = "D", method = "cart", m = 1, seed = 123)
 # N.B. you may need to replace `server1` if you have named your connection differently
-DASIM = synth_data$server1$syn
+DASIM = synth_data$server1$Data$syn
 ```
 
 ## Start DSLite local instance

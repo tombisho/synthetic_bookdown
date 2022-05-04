@@ -24,7 +24,7 @@
 <meta name="author" content="Tom Bishop, Soumya Banerjee" />
 
 
-<meta name="date" content="2022-02-07" />
+<meta name="date" content="2022-05-04" />
 
   <meta name="viewport" content="width=device-width, initial-scale=1" />
   <meta name="apple-mobile-web-app-capable" content="yes" />
@@ -221,35 +221,35 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <div class="sourceCode" id="cb3"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb3-1"><a href="synthpop.html#cb3-1"></a><span class="kw">library</span>(dsSyntheticClient)</span>
 <span id="cb3-2"><a href="synthpop.html#cb3-2"></a><span class="kw">library</span>(dsBaseClient)</span>
 <span id="cb3-3"><a href="synthpop.html#cb3-3"></a><span class="co"># N.B. you may need to replace `server1` if you have named your connection differently</span></span>
-<span id="cb3-4"><a href="synthpop.html#cb3-4"></a>synth_data =<span class="st"> </span><span class="kw">ds.syn</span>(<span class="dt">data =</span> <span class="st">&quot;D&quot;</span>, <span class="dt">method =</span> <span class="st">&quot;cart&quot;</span>, <span class="dt">m =</span> <span class="dv">1</span>, <span class="dt">seed =</span> <span class="dv">123</span>)<span class="op">$</span>server1<span class="op">$</span>syn</span></code></pre></div>
+<span id="cb3-4"><a href="synthpop.html#cb3-4"></a>synth_data =<span class="st"> </span><span class="kw">ds.syn</span>(<span class="dt">data =</span> <span class="st">&quot;D&quot;</span>, <span class="dt">method =</span> <span class="st">&quot;cart&quot;</span>, <span class="dt">m =</span> <span class="dv">1</span>, <span class="dt">seed =</span> <span class="dv">123</span>)<span class="op">$</span>server1<span class="op">$</span>Data<span class="op">$</span>syn</span></code></pre></div>
 <p>We then have the synthetic data on the client side and can view and manipulate it as required:</p>
 <div class="sourceCode" id="cb4"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb4-1"><a href="synthpop.html#cb4-1"></a><span class="kw">head</span>(synth_data)</span></code></pre></div>
-<pre><code>##        LAB_TSC  LAB_TRIG  LAB_HDL LAB_GLUC_FASTING PM_BMI_CONTINUOUS DIS_CVA
-## 1     5.789247 2.8768744 1.261161         2.581984          21.42926       0
-## 10    5.338826 0.7885768 1.609632         4.168195          31.29042       0
-## 100   4.334922 2.5569000 1.097729         5.143301          19.73722       0
-## 1000  6.311116 1.3648574 1.955236         3.813377          20.91334       0
-## 10000 8.346605 1.9988410 1.592837         3.683666          24.18755       0
-## 1001  5.139364 1.6111131 1.569089         4.860442          33.14083       0
+<pre><code>##        LAB_TSC  LAB_TRIG   LAB_HDL LAB_GLUC_FASTING PM_BMI_CONTINUOUS DIS_CVA
+## 1     5.716675 1.2131437 1.2263569         4.746905          28.30447       0
+## 10    5.635550 1.0352904 0.9980688         4.724115          26.40500       0
+## 100   4.304612 0.2782473 1.7977266         3.922677          28.83399       0
+## 1000  6.250217 0.8718639 1.8747723         3.457615          23.08530       0
+## 10000 8.621496 4.3548597 1.1010694         4.637112          27.85634       0
+## 1001  5.026787 2.2295412 1.1088745         3.802152          21.22769       0
 ##       DIS_DIAB DIS_AMI GENDER PM_BMI_CATEGORICAL
-## 1            0       0      0                  1
-## 10           0       0      0                  3
-## 100          0       0      1                  1
-## 1000         0       0      0                  1
-## 10000        0       0      1                  1
-## 1001         0       0      1                  3</code></pre>
+## 1            0       0      0                  2
+## 10           0       0      1                  2
+## 100          0       0      1                  2
+## 1000         0       0      1                  1
+## 10000        0       0      0                  2
+## 1001         0       0      0                  1</code></pre>
 <p>If you have a dataset with a larger number of columns, you could generate a synthetic dataset for a subset of the variables that you need to generate a particular part of your code development. For example if we needed to generate a diabetes variable based on blood triglycerides, HDL and glucose we could just generate a dataset for those variables:</p>
 <div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="synthpop.html#cb6-1"></a><span class="kw">ds.subset</span>(<span class="dt">x =</span> <span class="st">&quot;D&quot;</span>, <span class="dt">subset =</span> <span class="st">&quot;D2&quot;</span>, <span class="dt">cols =</span> <span class="kw">c</span>(<span class="st">&quot;LAB_HDL&quot;</span>, <span class="st">&quot;LAB_TRIG&quot;</span>, <span class="st">&quot;LAB_GLUC_FASTING&quot;</span>))</span>
 <span id="cb6-2"><a href="synthpop.html#cb6-2"></a><span class="co"># N.B. you may need to replace `server1` if you have named your connection differently</span></span>
-<span id="cb6-3"><a href="synthpop.html#cb6-3"></a>synth_data_sub =<span class="st"> </span><span class="kw">ds.syn</span>(<span class="dt">data =</span> <span class="st">&quot;D2&quot;</span>, <span class="dt">method =</span> <span class="st">&quot;cart&quot;</span>, <span class="dt">m =</span> <span class="dv">1</span>, <span class="dt">seed =</span> <span class="dv">123</span>)<span class="op">$</span>server1<span class="op">$</span>syn</span>
+<span id="cb6-3"><a href="synthpop.html#cb6-3"></a>synth_data_sub =<span class="st"> </span><span class="kw">ds.syn</span>(<span class="dt">data =</span> <span class="st">&quot;D2&quot;</span>, <span class="dt">method =</span> <span class="st">&quot;cart&quot;</span>, <span class="dt">m =</span> <span class="dv">1</span>, <span class="dt">seed =</span> <span class="dv">123</span>)<span class="op">$</span>server1<span class="op">$</span>Data<span class="op">$</span>syn</span>
 <span id="cb6-4"><a href="synthpop.html#cb6-4"></a><span class="kw">head</span>(synth_data_sub)</span></code></pre></div>
-<pre><code>##        LAB_HDL  LAB_TRIG LAB_GLUC_FASTING
-## 1     1.010557 4.1407950         5.602287
-## 10    1.279467 0.6393019         4.111829
-## 100   1.307681 2.5400787         4.522174
-## 1000  1.430441 2.7499347         5.234948
-## 10000 1.219077 1.5141544         3.869419
-## 1001  1.550882 2.9557399         4.929816</code></pre>
+<pre><code>##         LAB_HDL LAB_TRIG LAB_GLUC_FASTING
+## 1     0.9853245 3.076382         4.456135
+## 10    1.3826338 2.876982         4.873135
+## 100   1.2971431 2.419555         3.803016
+## 1000  1.4092677 1.197656         4.057115
+## 10000 1.3146526 2.818617         5.289527
+## 1001  1.5117405 1.244554         5.430503</code></pre>
 <p>Lastly we save our data for later chapters:</p>
 <div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="synthpop.html#cb8-1"></a><span class="kw">write.csv</span>(<span class="dt">x =</span> synth_data, <span class="dt">file =</span> <span class="st">&quot;data/synth_data.csv&quot;</span>)</span></code></pre></div>
 </div>
